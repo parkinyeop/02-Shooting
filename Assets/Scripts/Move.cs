@@ -21,7 +21,7 @@ public class Move : MonoBehaviour
         //new Vector3 (0, -1, 0); //Vector3.down;
 
         //transform.position += (speed * Vector3.down);
-        //Time.deltaTime : 이전 프레임에서 현재 프레임까ㅣ 걸린 시간 => 1프레임당 시간
+        //Time.deltaTime : 이전 프레임에서 현재 프레임까지 걸린 시간 => 1프레임당 시간
         //transform.position += (speed * Time.deltaTime * Vector3.down);
 
         if(Input.GetKeyDown(KeyCode.W))
