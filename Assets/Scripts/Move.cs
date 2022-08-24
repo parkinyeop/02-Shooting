@@ -24,7 +24,14 @@ public class Move : MonoBehaviour
         //Time.deltaTime : 이전 프레임에서 현재 프레임까지 걸린 시간 => 1프레임당 시간
         //transform.position += (speed * Time.deltaTime * Vector3.down);
 
-        if(Input.GetKeyDown(KeyCode.W))
+        OldInputManager();
+        transform.position += (speed * Time.deltaTime * dir);
+
+    }
+
+    private void OldInputManager()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
         {
             dir = Vector3.up;
             Debug.Log("W Input");
@@ -44,7 +51,5 @@ public class Move : MonoBehaviour
             dir = Vector3.right;
             Debug.Log("D Input");
         }
-        transform.position += (speed * Time.deltaTime * dir);
-
     }
 }
