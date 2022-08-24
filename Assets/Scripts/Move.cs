@@ -1,34 +1,76 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Move : MonoBehaviour
 {
     float speed = 5.0f;
+    bool rot = false;
+    float rotSpeed = 100.0f;
 
     Vector3 dir;
-
+        
     private void Start()
     {
         Debug.Log("Hello Unity");
     }
     private void Update()
     {
-        //transform.position += new Vector3(1, 0, 0);
-        //new Vector3(1,0,0); // Vector3.right;
-        //new Vector3(-1,0,0); // Vector3.left;
-        //new Vector3(0, 1, 0); // Vector3.up;
-        //new Vector3 (0, -1, 0); //Vector3.down;
-
-        //transform.position += (speed * Vector3.down);
-        //Time.deltaTime : 이전 프레임에서 현재 프레임까지 걸린 시간 => 1프레임당 시간
-        //transform.position += (speed * Time.deltaTime * Vector3.down);
-
-        OldInputManager();
         transform.position += (speed * Time.deltaTime * dir);
-
+        if(rot == true)
+        {
+        //transform.Rotate(new Vector3(0, 0 ,2 * rotSpeed * Time.deltaTime));
+        transform.Rotate(new Vector3(0, 0 ,360));
+        }
     }
 
+    public void MoveInput(InputAction.CallbackContext context)
+    {
+        ////Vector2 inputDir = context.ReadValue<Vector2>();
+        //if (context.started) // 매핑된 키가 누른 직후
+        //{
+        //    //Debug.Log("입력들어옴 - started");
+        //}
+        //if (context.performed) // 매핑된 키가 확실하게 눌러졌다
+        //{
+        //    transform.position += (speed * Time.deltaTime * dir);
+        //    Debug.Log("입력들어옴 - performed");
+        //}
+        //if (context.canceled)  // 매핑된 키가 떨어졌을 떄.
+        //{
+        //    //Debug.Log("입력들어옴 - cancled");
+        //}
+        Vector2 inputDir = context.ReadValue<Vector2>();
+        Debug.Log(inputDir);
+        dir = inputDir;
+
+        // vector : 방향과 크리
+        // vextor2 : 유니티에서 제공하는 구조체(struct) : 2차원 벡터를 표현하기 위한 구조체(x,y)
+    }
+
+    public void FireInput(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            Debug.Log("발사");
+        }
+    }
+
+    public void EvasionInput(InputAction.CallbackContext context)
+    {
+        bool rotInput = false;
+        if(context.performed)
+        {
+            Debug.Log("긴급회피");
+            rotInput = true;
+        }
+        rot = rotInput;
+
+    }
+    /// <summary>
+    /// InputManager 사용 예시
+    /// </summary>
     private void OldInputManager()
     {
         if (Input.GetKeyDown(KeyCode.W))
