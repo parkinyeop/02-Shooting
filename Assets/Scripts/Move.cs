@@ -6,9 +6,7 @@ using UnityEngine.InputSystem;
 public class Move : MonoBehaviour
 {
     float speed = 5.0f;
-    bool rot = false;
-    float rotSpeed = 100.0f;
-
+    
     Vector3 dir;
         
     private void Start()
@@ -18,11 +16,11 @@ public class Move : MonoBehaviour
     private void Update()
     {
         transform.position += (speed * Time.deltaTime * dir);
-        if(rot == true)
-        {
-        //transform.Rotate(new Vector3(0, 0 ,2 * rotSpeed * Time.deltaTime));
-        transform.Rotate(new Vector3(0, 0 ,360));
-        }
+        //if(rot == true)
+        //{
+        ////transform.Rotate(new Vector3(0, 0 ,2 * rotSpeed * Time.deltaTime));
+        ////transform.Rotate(new Vector3(0, 0 ,360));
+        //}
     }
 
     public void MoveInput(InputAction.CallbackContext context)
@@ -56,18 +54,7 @@ public class Move : MonoBehaviour
             Debug.Log("발사");
         }
     }
-
-    public void EvasionInput(InputAction.CallbackContext context)
-    {
-        bool rotInput = false;
-        if(context.performed)
-        {
-            Debug.Log("긴급회피");
-            rotInput = true;
-        }
-        rot = rotInput;
-
-    }
+        
     /// <summary>
     /// InputManager 사용 예시
     /// </summary>
