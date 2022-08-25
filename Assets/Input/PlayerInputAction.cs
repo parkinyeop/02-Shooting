@@ -53,6 +53,15 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Booster"",
+                    ""type"": ""Button"",
+                    ""id"": ""9951c411-cb19-4528-a79e-1cf86537df75"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,17 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""action"": ""Evasion"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c961a20d-db8f-4b0a-bc83-03fca9471481"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyBoard"",
+                    ""action"": ""Booster"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -155,6 +175,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Evasion = m_Player.FindAction("Evasion", throwIfNotFound: true);
+        m_Player_Booster = m_Player.FindAction("Booster", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -217,6 +238,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Evasion;
+    private readonly InputAction m_Player_Booster;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -224,6 +246,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Evasion => m_Wrapper.m_Player_Evasion;
+        public InputAction @Booster => m_Wrapper.m_Player_Booster;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -242,6 +265,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Evasion.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEvasion;
                 @Evasion.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEvasion;
                 @Evasion.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEvasion;
+                @Booster.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBooster;
+                @Booster.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBooster;
+                @Booster.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBooster;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -255,6 +281,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Evasion.started += instance.OnEvasion;
                 @Evasion.performed += instance.OnEvasion;
                 @Evasion.canceled += instance.OnEvasion;
+                @Booster.started += instance.OnBooster;
+                @Booster.performed += instance.OnBooster;
+                @Booster.canceled += instance.OnBooster;
             }
         }
     }
@@ -273,5 +302,6 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnEvasion(InputAction.CallbackContext context);
+        void OnBooster(InputAction.CallbackContext context);
     }
 }

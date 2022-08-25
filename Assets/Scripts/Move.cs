@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class Move : MonoBehaviour
 {
     float speed = 5.0f;
-    
+        
     Vector3 dir;
         
     private void Start()
