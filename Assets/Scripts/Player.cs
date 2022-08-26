@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     //Func<int , float> del4;// 인자가 int 이고 리턴이 float인 델리게이트를 만듬
     
     public float speed = 5.0f;
+    public GameObject bullet;
 
     float boost = 1.0f;
     
@@ -88,6 +89,37 @@ public class Player : MonoBehaviour
         //rigid.AddForce(speed * Time.fixedDeltaTime * dir);//관성이 필요한 무브에서 사용
         rigid.MovePosition(transform.position + speed*boost * Time.fixedDeltaTime * dir);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("OnCollisionEnter2"); //collider 와 부딪혔을 때 실행
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Debug.Log("OnCollisionStay2"); //collider 와 접촉하고 있을떄 ( 매 프레임 )
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.Log("OnCollisionExit2D"); // collider 와 접촉이 떨어질때
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("OnTriggerEnter2D"); // trigger에 들어갔을때  
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log("OnTriggerStay2D"); // trigger 와 겹쳐서 움직일때
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("OnTriggerExit2D"); // trigger 에서 나갈때
+    }
+
     private void OnMove(InputAction.CallbackContext context)
     {
         //Exception : 예외 상황(무엇을 해야 할지 지정이 안되어 있는 예외일때)
@@ -103,10 +135,10 @@ public class Player : MonoBehaviour
     }
     private void OnFire(InputAction.CallbackContext obj)
     {
-        // throw new NotImplementedException();
-        Debug.Log("발사");
+        float value = UnityEngine.Random.Range(0.0f, 10.0f);//value에 0,0~10,0 의 랜덤 값
+        
+        Instantiate(bullet,transform.position, Quaternion.identity);
     }
-
     private void OnBooster(InputAction.CallbackContext obj)
     {
         boost = 2.0f; 
