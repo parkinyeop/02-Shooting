@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     Vector3 dir;
     
     PlayerInputAction inputActions;
+    Animator anim;
 
     Rigidbody2D rigid;
     //Awake -> OnEnable -> Start : 함수 실행 순서
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour
     {
         inputActions = new PlayerInputAction();
         rigid = GetComponent<Rigidbody2D>();//한번만 찾고 저장해서 계속 쓰기(메모리를 쓰고 성능 아끼기
+        anim = GetComponent<Animator>();
     }
 
     /// <summary>
@@ -93,6 +95,10 @@ public class Player : MonoBehaviour
         //Debug.Log("이동입력");
         // Vector2 inputDir = context.ReadValue<Vector2>();
         dir = context.ReadValue<Vector2>();
+        //dir.y>0 //w(위)를 눌렀다
+        //dir.y == 0 // w,s누르지 않음
+        //dir.y<0 // s(아래)를 눌렀다
+        anim.SetFloat("InputY", dir.y);
          
     }
     private void OnFire(InputAction.CallbackContext obj)

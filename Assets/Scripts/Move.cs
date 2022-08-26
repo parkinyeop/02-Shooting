@@ -15,12 +15,7 @@ public class Move : MonoBehaviour
     }
     private void Update()
     {
-        transform.position += (speed * Time.deltaTime * dir);
-        //if(rot == true)
-        //{
-        ////transform.Rotate(new Vector3(0, 0 ,2 * rotSpeed * Time.deltaTime));
-        ////transform.Rotate(new Vector3(0, 0 ,360));
-        //}
+        transform.position += (speed * Time.deltaTime * dir);        
     }
 
     public void MoveInput(InputAction.CallbackContext context)
