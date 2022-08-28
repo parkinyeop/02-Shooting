@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     
     public float speed = 5.0f;
     public GameObject bullet;
-
+    
     float boost = 1.0f;
     
     Vector3 dir;
