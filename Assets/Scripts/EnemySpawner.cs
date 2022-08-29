@@ -23,14 +23,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //StartCreatEnemy();
-        //waitSpawnTime += Time.fixedDeltaTime;
-
-        //if (waitSpawnTime > spawnInterval)
-        //{
-        //    StartCoroutine(CreatEnemy());
-        //    waitSpawnTime = 0.0f;
-        //}
+        
     }
 
     IEnumerator CreatEnemy()
