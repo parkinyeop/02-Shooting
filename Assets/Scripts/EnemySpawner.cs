@@ -6,12 +6,13 @@ using UnityEngine.InputSystem;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject Enemy;
-    public float spawnInterval = 5.0f;
-    float waitSpawnTime = 0.0f;
+    float spawnInterval = 1.0f;
+    float yRange = 4.0f;
+    // float waitSpawnTime = 0.0f;
 
     void Start()
     {
-
+        StartCoroutine(CreatEnemy());
     }
 
     // Update is called once per frame
@@ -23,14 +24,13 @@ public class EnemySpawner : MonoBehaviour
     private void FixedUpdate()
     {
         //StartCreatEnemy();
-        waitSpawnTime += Time.fixedDeltaTime;
+        //waitSpawnTime += Time.fixedDeltaTime;
 
-        if (waitSpawnTime > spawnInterval)
-        {
-            StartCoroutine(CreatEnemy());
-            waitSpawnTime = 0.0f;
-
-        }
+        //if (waitSpawnTime > spawnInterval)
+        //{
+        //    StartCoroutine(CreatEnemy());
+        //    waitSpawnTime = 0.0f;
+        //}
     }
 
     IEnumerator CreatEnemy()
@@ -40,7 +40,7 @@ public class EnemySpawner : MonoBehaviour
 
         while (true)
         {
-            Instantiate(Enemy, transform.position, Quaternion.identity);
+            Instantiate(Enemy,new Vector3(transform.position.x,Random.Range(-yRange,yRange)),Quaternion.identity);
             yield return new WaitForSeconds(spawnInterval);
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveForward : MonoBehaviour
 {
-    float speed = 3.0f;
+    public float speed = 3.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,5 +15,9 @@ public class MoveForward : MonoBehaviour
     void Update()
     {
         transform.Translate(speed * Time.deltaTime * Vector3.left, Space.Self);
+        if(transform.position.x < -9.0f )
+        {
+            Destroy(gameObject);
+        }
     }
 }
