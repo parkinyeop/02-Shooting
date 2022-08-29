@@ -8,22 +8,25 @@ public class Astroid : MonoBehaviour
 {
     public float rotateSpeed = 360.0f;
     float speed = 3.0f;
+    float rigidPower = 50.0f;
     float yRange = 8.0f;
     Vector3 target;
+    Rigidbody2D rigid;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rigid = gameObject.GetComponent<Rigidbody2D>();
+        rigid.AddForce(new Vector3(Random.Range(-1f, -4f) * rigidPower, 1f));      
     }
 
     // Update is called once per frame
     void Update()
     {
-        target = new (-10.0f, Random.Range(-yRange, yRange), 0);
+        target = new (-30.0f, Random.Range(-yRange, yRange), 0);
         transform.Rotate(rotateSpeed * Time.deltaTime * new Vector3(0,0,1),Space.Self);
         
-        transform.position = Vector3.MoveTowards(transform.position,target, speed * Time.deltaTime);
+        //transform.position = Vector3.MoveTowards(transform.position,target, speed * Time.deltaTime);
 
         //Debug.Log(target);
 

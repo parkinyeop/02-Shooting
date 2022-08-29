@@ -7,7 +7,7 @@ public class AstroidSpawner : MonoBehaviour
 {
     public GameObject Astroid;
     public float spawnInterval = 5.0f;
-    float yRange = 8.0f;
+    float yRange = 4.0f;
     Vector3 target;
     float astroidSpeed = 3.0f;
 
