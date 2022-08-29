@@ -20,9 +20,9 @@ public class Player : MonoBehaviour
 
     float boost = 1.0f;
 
-    bool isFiring = false;
+    //bool isFiring = false;
     public float fireInterval = 0.5f;
-    float fireTimeCount = 0.0f;
+    //float fireTimeCount = 0.0f;
 
     float xBound = 7.0f;
     float yBound = 4.0f;
@@ -97,13 +97,13 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        fireTimeCount+=Time.fixedDeltaTime;
+        //fireTimeCount+=Time.fixedDeltaTime;
 
-        if(isFiring && fireTimeCount > fireInterval)
-        {
-            Instantiate(bullet, transform.position, Quaternion.identity);
-            fireTimeCount=0;
-        }
+        //if(isFiring && fireTimeCount > fireInterval)
+        //{
+        //    Instantiate(bullet, transform.position, Quaternion.identity);
+        //    fireTimeCount=0;
+        //}
         //transform.Translate(speed * Time.fixedDeltaTime * dir);
 
         //이 스크립트 파일이 들어있는 게임 오브젝트에서 Rigibody2D 컴포넌트를 찾아 리턴(없으면 null)
@@ -161,12 +161,24 @@ public class Player : MonoBehaviour
     {
         //float value = UnityEngine.Random.Range(0.0f, 10.0f);//value에 0,0~10,0 의 랜덤 값
         //Instantiate(bullet, transform.position, Quaternion.identity);
-        isFiring = true;
+        //isFiring = true;
+        StartCoroutine(Fire());
     }
     private void OnFireStop(InputAction.CallbackContext _)
     {
         //throw new NotImplementedException();
-        isFiring = false;
+        //isFiring = false;
+        StopAllCoroutines();
+    }
+    IEnumerator Fire()
+    {
+        //yield return null;
+        //yield return new WaitForSeconds(1.0f);
+        while(true)
+        {
+            Instantiate(bullet, transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(fireInterval);
+        }
     }
     private void OnBooster(InputAction.CallbackContext obj)
     {
