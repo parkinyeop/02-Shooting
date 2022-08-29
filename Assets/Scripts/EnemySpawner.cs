@@ -40,9 +40,22 @@ public class EnemySpawner : MonoBehaviour
 
         while (true)
         {
+            spawnInterval = Random.Range(0.5f, 1.5f);
             Instantiate(Enemy,new Vector3(transform.position.x,Random.Range(-yRange,yRange)),Quaternion.identity);
             yield return new WaitForSeconds(spawnInterval);
         }
-
     }
+
+    private void OnDrawGizmos()
+    {   
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position,new Vector3(1,8,0)); 
+    }
+    /// <summary>
+    /// 선택한 오브젝트의 Gizmo를 보여준다
+    /// </summary>
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.DrawWireCube(transform.position, new Vector3(1, 8, 0));
+    //}
 }
