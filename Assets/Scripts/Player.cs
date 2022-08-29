@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
- 
+
 
 public class Player : MonoBehaviour
 {
@@ -14,14 +14,21 @@ public class Player : MonoBehaviour
     //Action del2; //리턴타입이 void, 파라메타가 없는 델리게이트를 만듬
     //Action<int> del3; // 인자값이 int rh 리턴타입으 없는 델리게이트를 만듬
     //Func<int , float> del4;// 인자가 int 이고 리턴이 float인 델리게이트를 만듬
-    
+
     public float speed = 5.0f;
     public GameObject bullet;
-    
+
     float boost = 1.0f;
-    
+
+    bool isFiring = false;
+    public float fireInterval = 0.5f;
+    float fireTimeCount = 0.0f;
+
+    float xBound = 7.0f;
+    float yBound = 4.0f;
+
     Vector3 dir;
-    
+
     PlayerInputAction inputActions;
     Animator anim;
 
@@ -46,7 +53,8 @@ public class Player : MonoBehaviour
         inputActions.Player.Enable(); //오브젝트가 생셩되면 입력을 받는다
         inputActions.Player.Move.performed += OnMove; //performed 일 때 OnMove 함수 실행
         inputActions.Player.Move.canceled += OnMove; //cancled 일 때 OnMove 함수 실행
-        inputActions.Player.Fire.performed += OnFire;
+        inputActions.Player.Fire.performed += OnFireStart;
+        inputActions.Player.Fire.canceled += OnFireStop;
         inputActions.Player.Booster.performed += OnBooster;
         inputActions.Player.Booster.canceled += OffBooster;
     }
@@ -59,20 +67,29 @@ public class Player : MonoBehaviour
         inputActions.Player.Disable();//오브젝트가 사라질때 더이상 입력을 받지 않는다
         inputActions.Player.Move.performed -= OnMove; //연결된 함수 해제
         inputActions.Player.Move.canceled -= OnMove; //연결된 함수 해제
-        inputActions.Player.Fire.performed -= OnFire;
+        inputActions.Player.Fire.performed -= OnFireStart;
+        inputActions.Player.Fire.canceled -= OnFireStop;
         inputActions.Player.Booster.performed -= OnBooster;
-        inputActions.Player.Booster.canceled -= OffBooster;      
+        inputActions.Player.Booster.canceled -= OffBooster;
     }
+
+    
 
     private void Start()
     {
-        
+
     }
     /// <summary>
     /// 일정시간 간격(물리 업데이트 시간 간격)으로 호출
     /// </summary>
     private void Update()
     {
+        CheckBound();
+
+        //if( isFiring )
+        //{
+        //    Instantiate(bullet, transform.position, Quaternion.identity);
+        //}
         //transform.position += (speed * Time.deltaTime * dir);
         //transform.Translate(speed * Time.deltaTime * dir);
 
@@ -80,6 +97,13 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        fireTimeCount+=Time.fixedDeltaTime;
+
+        if(isFiring && fireTimeCount > fireInterval)
+        {
+            Instantiate(bullet, transform.position, Quaternion.identity);
+            fireTimeCount=0;
+        }
         //transform.Translate(speed * Time.fixedDeltaTime * dir);
 
         //이 스크립트 파일이 들어있는 게임 오브젝트에서 Rigibody2D 컴포넌트를 찾아 리턴(없으면 null)
@@ -87,7 +111,7 @@ public class Player : MonoBehaviour
         //GetComponent<Rigidbody2D>();
 
         //rigid.AddForce(speed * Time.fixedDeltaTime * dir);//관성이 필요한 무브에서 사용
-        rigid.MovePosition(transform.position + speed*boost * Time.fixedDeltaTime * dir);
+        rigid.MovePosition(transform.position + speed * boost * Time.fixedDeltaTime * dir);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -95,10 +119,10 @@ public class Player : MonoBehaviour
         Debug.Log("OnCollisionEnter2"); //collider 와 부딪혔을 때 실행
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        Debug.Log("OnCollisionStay2"); //collider 와 접촉하고 있을떄 ( 매 프레임 )
-    }
+    //private void OnCollisionStay2D(Collision2D collision)
+    //{
+    //    Debug.Log("OnCollisionStay2"); //collider 와 접촉하고 있을떄 ( 매 프레임 )
+    //}
 
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -110,10 +134,10 @@ public class Player : MonoBehaviour
         Debug.Log("OnTriggerEnter2D"); // trigger에 들어갔을때  
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        Debug.Log("OnTriggerStay2D"); // trigger 와 겹쳐서 움직일때
-    }
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    Debug.Log("OnTriggerStay2D"); // trigger 와 겹쳐서 움직일때
+    //}
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -131,20 +155,45 @@ public class Player : MonoBehaviour
         //dir.y == 0 // w,s누르지 않음
         //dir.y<0 // s(아래)를 눌렀다
         anim.SetFloat("InputY", dir.y);
-         
+
     }
-    private void OnFire(InputAction.CallbackContext obj)
+    private void OnFireStart(InputAction.CallbackContext _)
     {
-        float value = UnityEngine.Random.Range(0.0f, 10.0f);//value에 0,0~10,0 의 랜덤 값
-        
-        Instantiate(bullet,transform.position, Quaternion.identity);
+        //float value = UnityEngine.Random.Range(0.0f, 10.0f);//value에 0,0~10,0 의 랜덤 값
+        //Instantiate(bullet, transform.position, Quaternion.identity);
+        isFiring = true;
+    }
+    private void OnFireStop(InputAction.CallbackContext _)
+    {
+        //throw new NotImplementedException();
+        isFiring = false;
     }
     private void OnBooster(InputAction.CallbackContext obj)
     {
-        boost = 2.0f; 
+        boost = 2.0f;
     }
     private void OffBooster(InputAction.CallbackContext obj)
     {
         boost = 1.0f;
+    }
+    private void CheckBound()
+    {
+        if (transform.position.x < -xBound)
+        {
+            transform.position = new Vector3(-xBound, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.x > xBound)
+        {
+            transform.position = new Vector3(xBound, transform.position.y, transform.position.z);
+        }
+
+        if (transform.position.y < -yBound)
+        {
+            transform.position = new Vector3(transform.position.x, -yBound, transform.position.z);
+        }
+        else if (transform.position.y > yBound)
+        {
+            transform.position = new Vector3(transform.position.x, yBound, transform.position.z);
+        }
     }
 }
