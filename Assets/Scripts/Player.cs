@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     float xBound = 7.0f;
     float yBound = 4.0f;
 
+    Transform firePosition;
     Vector3 dir;
 
     PlayerInputAction inputActions;
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour
         inputActions = new PlayerInputAction();
         rigid = GetComponent<Rigidbody2D>();//한번만 찾고 저장해서 계속 쓰기(메모리를 쓰고 성능 아끼기
         anim = GetComponent<Animator>();
+        firePosition = transform.GetChild(0);
     }
 
     /// <summary>

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveForward : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     public float speed = 3.0f;
     // Start is called before the first frame update
@@ -15,9 +15,5 @@ public class MoveForward : MonoBehaviour
     void Update()
     {
         transform.Translate(speed * Time.deltaTime * Vector3.left, Space.Self);
-        if(transform.position.x < -9.0f )
-        {
-            Destroy(gameObject);
-        }
     }
 }

@@ -23,10 +23,10 @@ public class Astroid : MonoBehaviour
 
         transform.Translate(moveSpeed * Time.deltaTime * direction,Space.World);
                 
-        if (transform.position.x < -9.0f)
-        {
-            Destroy(gameObject);
-        }
+        //if (transform.position.x < -9.0f)
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
     private void OnDrawGizmos()
