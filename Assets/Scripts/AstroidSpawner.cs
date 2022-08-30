@@ -6,13 +6,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class AstroidSpawner : EnemySpawner
 {
-    //public GameObject Astroid;
-    //public float astroindDSawnInterval;
-    //float yRange = 4.0f;
-    //Vector3 target;
-    //float astroidSpeed = 3.0f;
-
-    Transform destination;
+    
+    public Transform destination;
 
     private void Awake()
     {
@@ -20,7 +15,7 @@ public class AstroidSpawner : EnemySpawner
         // 이 오브젝트 안에 있는 모든 컴포넌트가 생성이 완료되었다
         // 그리고 이 오브젝트의 자식 오브젝트들도 모두 생성이 완료되었다.
 
-        //destination = transform.Find("DestinationArea");
+        //destination = transform.Find("DestinationArea");//네임으로 검색하는 것은 부하가 걸림
         destination = transform.GetChild(0);
     }
 
@@ -65,11 +60,11 @@ public class AstroidSpawner : EnemySpawner
 
     protected override void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        if(destination == null)
+        Gizmos.color = Color.yellow;
+        if (destination == null)
         {
             destination = transform.GetChild(0);
         }
-        Gizmos.DrawLine(destination.position, new Vector3(1, 8, 0));
+        Gizmos.DrawWireCube(destination.position, new Vector3(1, 8, 0));
     }
 }
