@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject Enemy;
-    float spawnInterval = 1.0f;
-    float yRange = 4.0f;
+    public GameObject spawnPrefab;
+    protected float spawnInterval = 1.0f;
+    protected float yRange = 4.0f;
     // float waitSpawnTime = 0.0f;
 
     void Start()
@@ -26,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
         
     }
 
-    IEnumerator CreatEnemy()
+    protected virtual IEnumerator CreatEnemy()
     {
         //yield return new WaitForSeconds(spawnInterval);
         //Instantiate(Enemy, transform.position, Quaternion.identity);
@@ -34,12 +34,12 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             spawnInterval = Random.Range(0.5f, 1.5f);
-            Instantiate(Enemy,new Vector3(transform.position.x,Random.Range(-yRange,yRange)),Quaternion.identity);
+            Instantiate(spawnPrefab,new Vector3(transform.position.x,Random.Range(-yRange,yRange)),Quaternion.identity);
             yield return new WaitForSeconds(spawnInterval);
         }
     }
 
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {   
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position,new Vector3(1,8,0)); 
