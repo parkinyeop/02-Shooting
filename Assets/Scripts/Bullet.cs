@@ -5,10 +5,11 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     float bulletSpeed = 10;
+    public float lifeTime = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
-
+        Destroy(this.gameObject, lifeTime);
     }
 
     // Update is called once per frame

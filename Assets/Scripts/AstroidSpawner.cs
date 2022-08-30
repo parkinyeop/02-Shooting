@@ -23,7 +23,8 @@ public class AstroidSpawner : EnemySpawner
     void Start()
     {
         //첫번쨰 Update() 실행 직전
-        StartCoroutine(CreatEnemy());
+        //StartCoroutine(CreatEnemy());
+        StartCoroutine(Spawn());
     }
 
     // Update is called once per frame
@@ -32,7 +33,7 @@ public class AstroidSpawner : EnemySpawner
         
     }
 
-    protected override IEnumerator CreatEnemy()
+    protected override IEnumerator Spawn()
     {
         //yield return new WaitForSeconds(spawnInterval);
         //Instantiate(Enemy, transform.position, Quaternion.identity);

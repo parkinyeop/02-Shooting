@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(CreatEnemy());
+        StartCoroutine(Spawn());
     }
 
     // Update is called once per frame
@@ -26,15 +26,16 @@ public class EnemySpawner : MonoBehaviour
         
     }
 
-    protected virtual IEnumerator CreatEnemy()
+    protected virtual IEnumerator Spawn()
     {
         //yield return new WaitForSeconds(spawnInterval);
         //Instantiate(Enemy, transform.position, Quaternion.identity);
 
         while (true)
         {
+            GameObject obj = Instantiate(spawnPrefab, transform);
+            obj.transform.Translate(0, Random.Range(-yRange, yRange), 0);
             spawnInterval = Random.Range(0.5f, 1.5f);
-            Instantiate(spawnPrefab,new Vector3(transform.position.x,Random.Range(-yRange,yRange)),Quaternion.identity);
             yield return new WaitForSeconds(spawnInterval);
         }
     }

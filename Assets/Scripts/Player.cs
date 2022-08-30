@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     float xBound = 7.0f;
     float yBound = 4.0f;
 
-    Transform firePosition;
+    Transform[] firePosition;
     Vector3 dir;
 
     PlayerInputAction inputActions;
@@ -44,7 +44,11 @@ public class Player : MonoBehaviour
         inputActions = new PlayerInputAction();
         rigid = GetComponent<Rigidbody2D>();//한번만 찾고 저장해서 계속 쓰기(메모리를 쓰고 성능 아끼기
         anim = GetComponent<Animator>();
-        firePosition = transform.GetChild(0);
+        firePosition = new Transform[transform.childCount];
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            firePosition[i] = transform.GetChild(i);
+        }
     }
 
     /// <summary>
@@ -75,7 +79,7 @@ public class Player : MonoBehaviour
         inputActions.Player.Booster.canceled -= OffBooster;
     }
 
-    
+
 
     private void Start()
     {
@@ -176,9 +180,26 @@ public class Player : MonoBehaviour
     {
         //yield return null;
         //yield return new WaitForSeconds(1.0f);
-        while(true)
+        while (true)
         {
-            Instantiate(bullet, transform.position, Quaternion.identity);
+            for (int i = 0; i < firePosition.Length; i++)
+            {
+                //Instantiate(bullet,firePosition[i].position,Quaternion.identity);
+                switch (i)
+                {
+                    case 0:
+                        Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, 0)));
+                        break;
+                    case 1:
+                        Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, +35f)));
+                        break;
+                    case 2:
+                        Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, -35f)));
+                        break;
+                }
+                //Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, -30f)));
+
+            }
             yield return new WaitForSeconds(fireInterval);
         }
     }

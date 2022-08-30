@@ -14,6 +14,6 @@ public class TargetMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = transform.localPosition;
+        //transform.position = transform.localPosition;
     }
 }
