@@ -17,23 +17,21 @@ public class Player : MonoBehaviour
 
     public float speed = 5.0f;
     public GameObject bullet;
+    public float fireInterval = 0.5f;
 
     float boost = 1.0f;
-
-    //bool isFiring = false;
-    public float fireInterval = 0.5f;
-    //float fireTimeCount = 0.0f;
-
     float xBound = 7.0f;
     float yBound = 4.0f;
-
-    Transform[] firePosition;
     Vector3 dir;
 
+    
+    Transform[] firePosition;
+    public GameObject flash;
     PlayerInputAction inputActions;
+    Rigidbody2D rigid;
     Animator anim;
 
-    Rigidbody2D rigid;
+
     //Awake -> OnEnable -> Start : 함수 실행 순서
 
     /// <summary>
@@ -44,8 +42,8 @@ public class Player : MonoBehaviour
         inputActions = new PlayerInputAction();
         rigid = GetComponent<Rigidbody2D>();//한번만 찾고 저장해서 계속 쓰기(메모리를 쓰고 성능 아끼기
         anim = GetComponent<Animator>();
-        firePosition = new Transform[transform.childCount];
-        for (int i = 0; i < transform.childCount; i++)
+        firePosition = new Transform[transform.childCount-1];
+        for (int i = 0; i < transform.childCount-1; i++)
         {
             firePosition[i] = transform.GetChild(i);
         }
@@ -122,7 +120,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("OnCollisionEnter2"); //collider 와 부딪혔을 때 실행
+       // Debug.Log("OnCollisionEnter2"); //collider 와 부딪혔을 때 실행
     }
 
     //private void OnCollisionStay2D(Collision2D collision)
@@ -132,12 +130,12 @@ public class Player : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        Debug.Log("OnCollisionExit2D"); // collider 와 접촉이 떨어질때
+        //Debug.Log("OnCollisionExit2D"); // collider 와 접촉이 떨어질때
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("OnTriggerEnter2D"); // trigger에 들어갔을때  
+        //Debug.Log("OnTriggerEnter2D"); // trigger에 들어갔을때  
     }
 
     //private void OnTriggerStay2D(Collider2D collision)
@@ -147,7 +145,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("OnTriggerExit2D"); // trigger 에서 나갈때
+        //Debug.Log("OnTriggerExit2D"); // trigger 에서 나갈때
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -169,39 +167,56 @@ public class Player : MonoBehaviour
         //Instantiate(bullet, transform.position, Quaternion.identity);
         //isFiring = true;
         StartCoroutine(Fire());
+        //flash.gameObject.SetActive(true);
     }
     private void OnFireStop(InputAction.CallbackContext _)
     {
         //throw new NotImplementedException();
         //isFiring = false;
         StopAllCoroutines();
+        //flash.gameObject.SetActive(false);
     }
     IEnumerator Fire()
     {
-        //yield return null;
-        //yield return new WaitForSeconds(1.0f);
+        //yield return null; // 다음 프레임에 이어서 시작해라 
+        //yield return new WaitForSeconds(1.0f); // 1초후에 이어서 시작해라
+
         while (true)
         {
             for (int i = 0; i < firePosition.Length; i++)
             {
-                //Instantiate(bullet,firePosition[i].position,Quaternion.identity);
-                switch (i)
-                {
-                    case 0:
-                        Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, 0)));
-                        break;
-                    case 1:
-                        Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, +35f)));
-                        break;
-                    case 2:
-                        Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, -35f)));
-                        break;
-                }
+                //fireposition[i]번째의 회전값을 사용
+                //bulletInstatne.transform.rotation = firePosition[i].rotation;
+
+                GameObject bulletInstatne = Instantiate(bullet,firePosition[i].position, firePosition[i].rotation);
+
+
+                //switch (i)
+                //{
+                //    case 0:
+                //        Instantiate(bullet, firePosition[i].position, Quaternion.Euler(0, 0, 0));
+                //        break;
+                //    case 1:
+                //        Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, +35f)));
+                //        break;
+                //    case 2:
+                //        Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, -35f)));
+                //        break;
+                //}
                 //Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, -30f)));
 
             }
+            flash.gameObject.SetActive(true);
+            StartCoroutine(FlashOff());
+
             yield return new WaitForSeconds(fireInterval);
         }
+    }
+
+    IEnumerator FlashOff()
+    {
+        yield return new WaitForSeconds(0.1f);
+        flash.gameObject.SetActive(false);
     }
     private void OnBooster(InputAction.CallbackContext obj)
     {

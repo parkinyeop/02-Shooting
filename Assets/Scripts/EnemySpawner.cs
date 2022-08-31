@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject spawnPrefab;
-    protected float spawnInterval = 1.0f;
+    public float spawnInterval = 1.0f;
     protected float yRange = 4.0f;
     // float waitSpawnTime = 0.0f;
 
@@ -35,7 +35,7 @@ public class EnemySpawner : MonoBehaviour
         {
             GameObject obj = Instantiate(spawnPrefab, transform);
             obj.transform.Translate(0, Random.Range(-yRange, yRange), 0);
-            spawnInterval = Random.Range(0.5f, 1.5f);
+            //spawnInterval = Random.Range(0.5f, 1.5f);
             yield return new WaitForSeconds(spawnInterval);
         }
     }
