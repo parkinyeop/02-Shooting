@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 717122165193835874}
   - component: {fileID: 717122165193835875}
   - component: {fileID: 717122165193835879}
-  - component: {fileID: 717122165193835876}
   - component: {fileID: 7169949947189843265}
   - component: {fileID: -318615979172491702}
   m_Layer: 0
@@ -123,21 +122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  explosion: {fileID: 5339531607527812834, guid: a1956fee8158d4b4991e04430ffe0faf, type: 3}
---- !u!114 &717122165193835876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 717122165193835872}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e147426f1404f94d895213738729a81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  explosion: {fileID: 0}
 --- !u!58 &7169949947189843265
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -188,7 +172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5339531607527812833, guid: a1956fee8158d4b4991e04430ffe0faf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.924
       objectReference: {fileID: 0}
     - target: {fileID: 5339531607527812833, guid: a1956fee8158d4b4991e04430ffe0faf, type: 3}
       propertyPath: m_LocalPosition.y
