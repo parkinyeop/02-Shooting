@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -17,7 +18,9 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(speed * Time.deltaTime * Vector3.left, Space.Self);
+        float yPos = Mathf.Sin(speed * Time.deltaTime*100);
+        Debug.Log(yPos);
+        transform.Translate(speed * Time.deltaTime * new Vector3(-1,yPos,0) , Space.Self);
     }
 
     private void OnCollisionEnter2D(Collision2D collider)

@@ -16,7 +16,13 @@ public class Astroid : MonoBehaviour
     public float minRotateSpeed = 30.0f;
     public float maxRotateSpeed = 360.0f;
 
-    GameObject explosion;
+    public GameObject small;
+    public GameObject explosion;
+    public int splitCount = 3;
+    [Range(1, 16)]
+    float lifetime;
+    float minLifeTime = 3.0f;
+    float maxLifeTime = 5.0f;
 
 
 
@@ -42,21 +48,27 @@ public class Astroid : MonoBehaviour
         float rotRand = (moveSpeed - minMoveSpeed) / (maxMoveSpeed - minMoveSpeed);
         rotateSpeed = rotRand * (maxRotateSpeed - minRotateSpeed) + minRotateSpeed;
         //rotateSpeed = Mathf.Lerp (minRotateSpeed, maxRotateSpeed, rotRand);//Lerp() 를 사용하여 구현
+
+        lifetime = Random.Range(minLifeTime, maxLifeTime);
     }
 
     void Start()
     {
         explosion = transform.GetChild(0).gameObject;
+        StartCoroutine(SelfCrush());
+    }
+
+    IEnumerator SelfCrush()
+    {
+        yield return new WaitForSeconds(lifetime);
+        Crush();
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.Rotate(rotateSpeed * Time.deltaTime * Vector3.forward);
-
         transform.Translate(moveSpeed * Time.deltaTime * direction, Space.World);
-
-
     }
 
     private void OnDrawGizmos()
@@ -74,12 +86,28 @@ public class Astroid : MonoBehaviour
             hitPoint--;
             if (hitPoint <= 0)
             {
-                explosion.SetActive(true);//부모가 총알에 맞았을떄 익스프롤션 활성화
-                explosion.transform.parent = null; // 애니메이션 재생을 위해 부모랑 종속 끊기
-
-                Destroy(this.gameObject);
+                //explosion.SetActive(true);//부모가 총알에 맞았을떄 익스프롤션 활성화
+                //explosion.transform.parent = null; // 애니메이션 재생을 위해 부모랑 종속 끊기
+                Crush();
+                //Destroy(this.gameObject);
             }
             // Debug.Log(hp);
+        }
+    }
+
+    void Crush()
+    {
+        explosion.SetActive(true);//부모가 총알에 맞았을떄 익스프롤션 활성화
+        explosion.transform.parent = null; // 애니메이션 재생을 위해 부모랑 종속 끊기
+        Destroy(this.gameObject);
+
+        float rand = Random.Range(0, 360.0f);
+        float angleGap = rand / (float)splitCount;
+
+
+        for (int i = 0; i < splitCount; i++)
+        {
+            Instantiate(small, transform.position, Quaternion.Euler(0, 0,(angleGap * i)));
         }
     }
 }
