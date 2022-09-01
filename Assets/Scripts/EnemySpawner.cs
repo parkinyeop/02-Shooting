@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject spawnPrefab;
-    public float spawnInterval = 1.0f;
+    public float spawnInterval = 3.0f;
     protected float yRange = 4.0f;
     // float waitSpawnTime = 0.0f;
 

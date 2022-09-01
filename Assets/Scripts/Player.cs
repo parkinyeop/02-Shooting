@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     Animator anim;
 
+    IEnumerator fireCoroutine;
+
 
     //Awake -> OnEnable -> Start : 함수 실행 순서
 
@@ -47,6 +49,8 @@ public class Player : MonoBehaviour
         {
             firePosition[i] = transform.GetChild(i);
         }
+
+        fireCoroutine = Fire();
     }
 
     /// <summary>
@@ -166,14 +170,14 @@ public class Player : MonoBehaviour
         //float value = UnityEngine.Random.Range(0.0f, 10.0f);//value에 0,0~10,0 의 랜덤 값
         //Instantiate(bullet, transform.position, Quaternion.identity);
         //isFiring = true;
-        StartCoroutine(Fire());
+        StartCoroutine(fireCoroutine);
         //flash.gameObject.SetActive(true);
     }
     private void OnFireStop(InputAction.CallbackContext _)
     {
         //throw new NotImplementedException();
         //isFiring = false;
-        StopAllCoroutines();
+        StopCoroutine(fireCoroutine);
         //flash.gameObject.SetActive(false);
     }
     IEnumerator Fire()
@@ -206,7 +210,7 @@ public class Player : MonoBehaviour
                 //Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, -30f)));
 
             }
-            flash.gameObject.SetActive(true);
+            flash.SetActive(true);
             StartCoroutine(FlashOff());
 
             yield return new WaitForSeconds(fireInterval);
@@ -216,7 +220,7 @@ public class Player : MonoBehaviour
     IEnumerator FlashOff()
     {
         yield return new WaitForSeconds(0.1f);
-        flash.gameObject.SetActive(false);
+        flash.SetActive(false);
     }
     private void OnBooster(InputAction.CallbackContext obj)
     {
