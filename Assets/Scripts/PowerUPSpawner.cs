@@ -25,6 +25,9 @@ public class PowerUPSpawner : MonoBehaviour
 
         while (true)
         {
+            //float randRot = 0.4f;
+            //randRot = UnityEngine.Random.Range(-randRot, randRot);
+
             GameObject obj = Instantiate(powerUp, transform);
             obj.transform.Translate(Random.Range(-yRange, yRange), 0, 0);
 

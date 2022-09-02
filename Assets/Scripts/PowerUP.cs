@@ -7,8 +7,19 @@ using UnityEngine;
 public class PowerUP : MonoBehaviour
 {
     float speed = 2;
-    void Start()
+    float randRot = 0.5f;
+    Rigidbody2D rigid;
+    Transform trans;
+    Vector3 dir;
+    float lifeTime = 25f;
+
+    private void Start()
     {
+        randRot = UnityEngine.Random.Range(-randRot, randRot);
+        dir = new Vector3(-1, randRot, 0);
+        trans = GetComponent<Transform>();
+        rigid = GetComponent<Rigidbody2D>();
+        Destroy(this.gameObject,lifeTime);
 
     }
 
@@ -16,8 +27,18 @@ public class PowerUP : MonoBehaviour
     void Update()
     {
 
+        transform.Translate(speed * Time.deltaTime*dir, Space.World);
+        //transform.position = speed * Time.deltaTime * dir;
+        //rigid.velocity = (dir * speed);
 
-        transform.position += speed * Time.deltaTime * new Vector3(-1,0,0);
+    }
 
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Border"))
+        {
+            dir = dir * -1.0f;
+            Debug.Log("Border");
+        }
     }
 }

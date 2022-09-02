@@ -6,7 +6,9 @@ using UnityEngine.InputSystem;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject spawnPrefab;
+    public GameObject spawnBoss;
     public float spawnInterval = 3.0f;
+    public float spawnProb = 15.0f;
     protected float yRange = 3.0f;
     // float waitSpawnTime = 0.0f;
 
@@ -23,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+
     }
 
     protected virtual IEnumerator Spawn()
@@ -33,7 +35,19 @@ public class EnemySpawner : MonoBehaviour
 
         while (true)
         {
-            GameObject obj = Instantiate(spawnPrefab, transform);
+            float rndSpawn = Random.Range(0, 101);
+            GameObject obj;
+
+            if (rndSpawn > spawnProb)
+            {
+                obj = Instantiate(spawnPrefab, transform);
+            }
+            else
+            {
+                obj = Instantiate(spawnBoss, transform);
+
+            }
+
             obj.transform.Translate(0, Random.Range(-yRange, yRange), 0);
             //spawnInterval = Random.Range(0.5f, 1.5f);
             yield return new WaitForSeconds(spawnInterval);
@@ -41,9 +55,9 @@ public class EnemySpawner : MonoBehaviour
     }
 
     protected virtual void OnDrawGizmos()
-    {   
+    {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position,new Vector3(1,8,0)); 
+        Gizmos.DrawWireCube(transform.position, new Vector3(1, 8, 0));
     }
     /// <summary>
     /// 선택한 오브젝트의 Gizmo를 보여준다
