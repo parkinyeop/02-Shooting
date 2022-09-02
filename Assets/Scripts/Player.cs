@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
     float xBound = 7.0f;
     float yBound = 4.0f;
     Vector3 dir;
-    int power;
 
     float fireAngle = 30.0f;
 
@@ -31,8 +30,11 @@ public class Player : MonoBehaviour
     PlayerInputAction inputActions;
     Rigidbody2D rigid;
     Animator anim;
-    GameObject firePositionRoot;
+
+    Transform firePositionRoot;
     GameObject flash;
+    
+    int power = 0;
 
     int Power
     {
@@ -48,20 +50,20 @@ public class Player : MonoBehaviour
 
             while(firePositionRoot.childCount > 0)
             {
-                Transform temp = firePositionRoot.Getchild(0);
-                temp.parent
+                Transform temp = firePositionRoot.GetChild(0);
+                temp.parent = null;
+                Destroy(temp.gameObject);
             }
+
             for (int i = 0; i < power; i++)
             {
                 GameObject firePos = new GameObject();
-
                 firePos.name = $"FirePosition_{i}";
-
-                firePos.transform.parent = firePositionRoot.transform;
-
+                firePos.transform.parent = firePositionRoot;
+                firePos.transform.localPosition = Vector3.zero;
+                //firePos.transform.position = firePositionRoot.transform.position;
 
                 firePos.transform.rotation = Quaternion.Euler(0, 0, (power - 1) * (fireAngle * 0.5f) + i * -fireAngle);
-
                 firePos.transform.Translate(1.0f, 0, 0);
 
             }
@@ -82,15 +84,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();//한번만 찾고 저장해서 계속 쓰기(메모리를 쓰고 성능 아끼기
         anim = GetComponent<Animator>();
 
-        //firePosition = new Transform[transform.childCount-1];
-        //for (int i = 0; i < transform.childCount-1; i++)
-        //{
-        //    firePosition[i] = transform.GetChild(i);
-        //}
-
-        firePositionRoot = GetComponent<GameObject>();
-
-        firePositionRoot = transform.GetChild(0).;
+        firePositionRoot = transform.GetChild(0);
         flash = transform.GetChild(1).gameObject;
         flash.SetActive(false);
 
@@ -129,40 +123,25 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-
+        Power = 1;
     }
+
     /// <summary>
     /// 일정시간 간격(물리 업데이트 시간 간격)으로 호출
     /// </summary>
     private void Update()
     {
         CheckBound();
-
-        //if( isFiring )
-        //{
-        //    Instantiate(bullet, transform.position, Quaternion.identity);
-        //}
-        //transform.position += (speed * Time.deltaTime * dir);
-        //transform.Translate(speed * Time.deltaTime * dir);
-
     }
 
     private void FixedUpdate()
     {
-        //fireTimeCount+=Time.fixedDeltaTime;
-
-        //if(isFiring && fireTimeCount > fireInterval)
-        //{
-        //    Instantiate(bullet, transform.position, Quaternion.identity);
-        //    fireTimeCount=0;
-        //}
-        //transform.Translate(speed * Time.fixedDeltaTime * dir);
 
         //이 스크립트 파일이 들어있는 게임 오브젝트에서 Rigibody2D 컴포넌트를 찾아 리턴(없으면 null)
         // Rigidbody2D 함수는 무거움 = Update() 또는 FixedUpdate 처럼 자주 호출 되는 함수 안에서는 안쓰는 것이 좋다
         //GetComponent<Rigidbody2D>();
-
         //rigid.AddForce(speed * Time.fixedDeltaTime * dir);//관성이 필요한 무브에서 사용
+
         rigid.MovePosition(transform.position + speed * boost * Time.fixedDeltaTime * dir);
     }
 
@@ -183,7 +162,11 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("OnTriggerEnter2D"); // trigger에 들어갔을때  
+        if(collision.CompareTag("PowerUP"))
+        {
+            Power++;
+            Destroy(collision.gameObject);
+        }
     }
 
     //private void OnTriggerStay2D(Collider2D collision)
@@ -199,30 +182,25 @@ public class Player : MonoBehaviour
     private void OnMove(InputAction.CallbackContext context)
     {
         //Exception : 예외 상황(무엇을 해야 할지 지정이 안되어 있는 예외일때)
-        //throw new NotImplementedException(); //NotImplementedException()을 실행해라. => 코드 구현을 알려주기 위해 강제로 죽여라
-        //Debug.Log("이동입력");
+        //throw new NotImplementedException(); 
+        //NotImplementedException()을 실행해라. => 코드 구현을 알려주기 위해 강제로 죽여라
+        
         // Vector2 inputDir = context.ReadValue<Vector2>();
         dir = context.ReadValue<Vector2>();
         //dir.y>0 //w(위)를 눌렀다
         //dir.y == 0 // w,s누르지 않음
         //dir.y<0 // s(아래)를 눌렀다
+
         anim.SetFloat("InputY", dir.y);
 
     }
     private void OnFireStart(InputAction.CallbackContext _)
     {
-        //float value = UnityEngine.Random.Range(0.0f, 10.0f);//value에 0,0~10,0 의 랜덤 값
-        //Instantiate(bullet, transform.position, Quaternion.identity);
-        //isFiring = true;
         StartCoroutine(fireCoroutine);
-        //flash.gameObject.SetActive(true);
     }
     private void OnFireStop(InputAction.CallbackContext _)
     {
-        //throw new NotImplementedException();
-        //isFiring = false;
         StopCoroutine(fireCoroutine);
-        //flash.gameObject.SetActive(false);
     }
     IEnumerator Fire()
     {
@@ -231,29 +209,15 @@ public class Player : MonoBehaviour
 
         while (true)
         {
-            for (int i = 0; i < firePosition.Length; i++)
+            for (int i = 0; i < firePositionRoot.childCount; i++)
             {
                 //fireposition[i]번째의 회전값을 사용
                 //bulletInstatne.transform.rotation = firePosition[i].rotation;
 
-                GameObject bulletInstatne = Instantiate(bullet, firePosition[i].position, firePosition[i].rotation);
-
-
-                //switch (i)
-                //{
-                //    case 0:
-                //        Instantiate(bullet, firePosition[i].position, Quaternion.Euler(0, 0, 0));
-                //        break;
-                //    case 1:
-                //        Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, +35f)));
-                //        break;
-                //    case 2:
-                //        Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, -35f)));
-                //        break;
-                //}
-                //Instantiate(bullet, firePosition[i].position, Quaternion.Euler(new Vector3(0, 0, -30f)));
-
+                GameObject bulletInstatne = Instantiate(bullet, 
+                    firePositionRoot.GetChild(i).position, firePositionRoot.GetChild(i).rotation);
             }
+
             flash.SetActive(true);
             StartCoroutine(FlashOff());
 

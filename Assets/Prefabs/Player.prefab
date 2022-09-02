@@ -47,7 +47,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6241396204916734692
 Transform:
   m_ObjectHideFlags: 0
@@ -220,7 +220,6 @@ MonoBehaviour:
   speed: 5
   bullet: {fileID: 3078807497396073865, guid: 3fe88fbcbac4d004087e03f15fa331c3, type: 3}
   fireInterval: 0.3
-  flash: {fileID: 6241396204916734694}
 --- !u!70 &6241396206007037799
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
