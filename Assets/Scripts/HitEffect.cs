@@ -6,10 +6,18 @@ using UnityEngine;
 public class HitEffect : MonoBehaviour
 {
     Animator anim;
+    float animLength;
+    
+    private void OnEnable()
+    {
+        anim = GetComponent<Animator>();
+        animLength = anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
+        Destroy(this.gameObject, animLength);
     }
 
     // Update is called once per frame
@@ -18,8 +26,4 @@ public class HitEffect : MonoBehaviour
         
     }
 
-    private void OnEnable()
-    {
-        Destroy(this.gameObject, anim.GetCurrentAnimatorClipInfo(0)[0].clip.length);
-    }
 }

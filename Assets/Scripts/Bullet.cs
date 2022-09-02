@@ -12,10 +12,11 @@ public class Bullet : MonoBehaviour
 
     private void Awake()
     {
-        //hitEffect.SetActive(false);
+        hitEffect.SetActive(false);
     }
     void Start()
     {
+        hitEffect.SetActive(false);
         Destroy(this.gameObject, lifeTime);
     }
 
@@ -32,8 +33,8 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             //Debug.Log("쾅");
-            hitEffect.transform.position = collision.contacts[0].point;
             hitEffect.SetActive(true);
+            hitEffect.transform.position = collision.contacts[0].point;
             hitEffect.transform.parent = null; // 애니메이션 재생을 위해 부모랑 종속 끊기
 
             // collision.contact[0].normal : 법선 백터 (노멀 벡터)

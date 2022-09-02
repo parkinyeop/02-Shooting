@@ -23,13 +23,50 @@ public class Player : MonoBehaviour
     float xBound = 7.0f;
     float yBound = 4.0f;
     Vector3 dir;
+    int power;
 
-    
+    float fireAngle = 30.0f;
+
     Transform[] firePosition;
-    public GameObject flash;
     PlayerInputAction inputActions;
     Rigidbody2D rigid;
     Animator anim;
+    GameObject firePositionRoot;
+    GameObject flash;
+
+    int Power
+    {
+        get => power;
+
+        set
+        {
+            power = value;
+            if (power > 3)
+            {
+                power = 3;
+            }
+
+            while(firePositionRoot.childCount > 0)
+            {
+                Transform temp = firePositionRoot.Getchild(0);
+                temp.parent
+            }
+            for (int i = 0; i < power; i++)
+            {
+                GameObject firePos = new GameObject();
+
+                firePos.name = $"FirePosition_{i}";
+
+                firePos.transform.parent = firePositionRoot.transform;
+
+
+                firePos.transform.rotation = Quaternion.Euler(0, 0, (power - 1) * (fireAngle * 0.5f) + i * -fireAngle);
+
+                firePos.transform.Translate(1.0f, 0, 0);
+
+            }
+        }
+    }
 
     IEnumerator fireCoroutine;
 
@@ -44,11 +81,18 @@ public class Player : MonoBehaviour
         inputActions = new PlayerInputAction();
         rigid = GetComponent<Rigidbody2D>();//한번만 찾고 저장해서 계속 쓰기(메모리를 쓰고 성능 아끼기
         anim = GetComponent<Animator>();
-        firePosition = new Transform[transform.childCount-1];
-        for (int i = 0; i < transform.childCount-1; i++)
-        {
-            firePosition[i] = transform.GetChild(i);
-        }
+
+        //firePosition = new Transform[transform.childCount-1];
+        //for (int i = 0; i < transform.childCount-1; i++)
+        //{
+        //    firePosition[i] = transform.GetChild(i);
+        //}
+
+        firePositionRoot = GetComponent<GameObject>();
+
+        firePositionRoot = transform.GetChild(0).;
+        flash = transform.GetChild(1).gameObject;
+        flash.SetActive(false);
 
         fireCoroutine = Fire();
     }
@@ -124,7 +168,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       // Debug.Log("OnCollisionEnter2"); //collider 와 부딪혔을 때 실행
+        // Debug.Log("OnCollisionEnter2"); //collider 와 부딪혔을 때 실행
     }
 
     //private void OnCollisionStay2D(Collision2D collision)
@@ -192,7 +236,7 @@ public class Player : MonoBehaviour
                 //fireposition[i]번째의 회전값을 사용
                 //bulletInstatne.transform.rotation = firePosition[i].rotation;
 
-                GameObject bulletInstatne = Instantiate(bullet,firePosition[i].position, firePosition[i].rotation);
+                GameObject bulletInstatne = Instantiate(bullet, firePosition[i].position, firePosition[i].rotation);
 
 
                 //switch (i)

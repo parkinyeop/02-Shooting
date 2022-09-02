@@ -18,7 +18,7 @@ public class Astroid : MonoBehaviour
 
     public GameObject small;
     public GameObject explosion;
-    public int splitCount = 3;
+    int splitCount = 3;
     [Range(1, 16)]
     float lifetime;
     float minLifeTime = 3.0f;
@@ -99,8 +99,18 @@ public class Astroid : MonoBehaviour
     {
         explosion.SetActive(true);//부모가 총알에 맞았을떄 익스프롤션 활성화
         explosion.transform.parent = null; // 애니메이션 재생을 위해 부모랑 종속 끊기
-        Destroy(this.gameObject);
 
+        //5% 확률
+        if(Random.Range(0.0f, 1.0f) < 0.05f)
+        {
+            splitCount = 20;
+        }
+        else
+        {
+            splitCount = Random.Range(3, 6);
+        }
+
+        
         float rand = Random.Range(0, 360.0f);
         float angleGap = rand / (float)splitCount;
 
@@ -109,5 +119,6 @@ public class Astroid : MonoBehaviour
         {
             Instantiate(small, transform.position, Quaternion.Euler(0, 0,(angleGap * i)));
         }
+        Destroy(this.gameObject);
     }
 }
