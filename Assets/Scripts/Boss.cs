@@ -17,9 +17,9 @@ public class Boss : MonoBehaviour
 
     public GameObject powerUp;
 
-    [Range(0.1f,0.9f)]
+    [Range(0.1f, 0.9f)]
     public float spawnPow;
-    
+
     //public float spawnInterval = 2;
     //float yRange = 4;
 
@@ -31,8 +31,10 @@ public class Boss : MonoBehaviour
 
         spawnY = transform.position.y; // 생성 시 기준 높이
         timeElapsed = 0.0f;
-        amlitude = 2.0f;
+        amlitude = 1.5f;
         frequency = 1.0f;
+
+        Destroy(this.gameObject, 15.0f);
     }
 
     // Update is called once per frame
@@ -44,7 +46,7 @@ public class Boss : MonoBehaviour
         //Debug.Log(newY);
         float newX = transform.position.x - speed * Time.deltaTime;
 
-        if(newX <= 5.5f)
+        if (newX <= 5.5f)
         {
             newX = 5.5f;
         }
@@ -68,11 +70,13 @@ public class Boss : MonoBehaviour
 
                 float rndPower = Random.Range(0.0f, 1.0f);
 
-                Debug.Log(rndPower);
+                //Debug.Log(rndPower);
 
-                if (rndPower <spawnPow)
+                if (rndPower < spawnPow)
+                //if (true)
                 {
                     Spawn();
+
                 }
 
                 Destroy(this.gameObject);
@@ -81,18 +85,22 @@ public class Boss : MonoBehaviour
 
         }
 
-        if (collider.gameObject.CompareTag("Border"))
-        {
-            Destroy(this.gameObject);
-        }
+        //if (collider.gameObject.CompareTag("KillZone"))
+        //{
+        //    Destroy(this.gameObject);
+        //}
     }
 
     private void Spawn()
     {
-        float rand = Random.Range(0, 360.0f);
-        float angleGap = rand;
-        Instantiate(powerUp, transform.position, Quaternion.Euler(0, 0, angleGap));
+        //float rand = Random.Range(0, 360.0f);
+        //float angleGap = rand;
+        //Instantiate(powerUp, transform.position, Quaternion.Euler(0, 0, angleGap));
         //GameObject obj = Instantiate(powerUp, transform);
         //obj.transform.Translate(Random.Range(-yRange, yRange), 0, 0);
+        Instantiate(powerUp, transform.position, Quaternion.identity);
+        powerUp.gameObject.SetActive(true);
+        powerUp.transform.parent = null;
+        //Debug.Log("Spawn");
     }
 }

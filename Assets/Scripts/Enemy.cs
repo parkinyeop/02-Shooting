@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
         //transform.Translate(speed * Time.deltaTime * new Vector3(-1, spawnY, 0), Space.World);
     }
 
-    private void OnCollisionEnter2D(Collision2D collider)
+    protected virtual void OnCollisionEnter2D(Collision2D collider)
     {
         if (collider.gameObject.CompareTag("Bullet"))
         {

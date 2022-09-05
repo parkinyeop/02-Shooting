@@ -47,22 +47,27 @@ public class Player : MonoBehaviour
             {
                 power = 3;
             }
-
+            //기존의 firePosition을 제거
             while(firePositionRoot.childCount > 0)
             {
-                Transform temp = firePositionRoot.GetChild(0);
-                temp.parent = null;
-                Destroy(temp.gameObject);
+                Transform temp = firePositionRoot.GetChild(0); // firePosionRoot의 첫번째 자식
+                temp.parent = null; // 부모 관계를 끊고
+                Destroy(temp.gameObject); // 삭제 시키기기
             }
 
+            //파워의 값에 따라 새로운 포지션 배치
             for (int i = 0; i < power; i++)
             {
-                GameObject firePos = new GameObject();
+                GameObject firePos = new GameObject(); // 빈 오브젝트 생성
                 firePos.name = $"FirePosition_{i}";
-                firePos.transform.parent = firePositionRoot;
-                firePos.transform.localPosition = Vector3.zero;
+                firePos.transform.parent = firePositionRoot; // firePositionRoot의 자식으로 등록
+                firePos.transform.localPosition = Vector3.zero; // 로컬 위치를 0,0,0 으로 만듬
                 //firePos.transform.position = firePositionRoot.transform.position;
 
+
+                //파워가 1 일때 : 0도
+                //파워가 2 일때 : -15도  15도
+                //파워가 3 일때 : -30도 30도
                 firePos.transform.rotation = Quaternion.Euler(0, 0, (power - 1) * (fireAngle * 0.5f) + i * -fireAngle);
                 firePos.transform.Translate(1.0f, 0, 0);
 
@@ -154,14 +159,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("PowerUP"))
-        {
-            Power++;
-            Destroy(collision.gameObject);
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(collision.CompareTag("PowerUP"))
+    //    {
+    //        Power++;
+    //        Destroy(collision.gameObject);
+    //    }
+    //}
 
 
     private void OnTriggerExit2D(Collider2D collision)

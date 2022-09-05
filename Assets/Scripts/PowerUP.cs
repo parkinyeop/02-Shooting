@@ -7,27 +7,21 @@ using UnityEngine;
 
 public class PowerUP : MonoBehaviour
 {
-    float speed = 2.0f;
-    float randRot = 0.5f;
-    Rigidbody2D rigid;
-    Transform trans;
-    Vector2 dir;
-    float lifeTime = 10.0f;
+    public float dirChangeTime = 2.0f; //이동 방향이 바뀌는 시간
 
-    public float dirChangeTime = 2.0f;
+    float speed = 2.0f; // 이동 속도
+    float lifeTime = 10.0f; // 스스로 없어지는 시간
 
-    WaitForSeconds waitTime;
-    Player player;
+
+    WaitForSeconds waitTime; //코루틴에서 사용하는 대기 시간
+    Player player; // 파워업 아이템의 이동방향에 영향을 주는 플레이어
+    Vector2 dir; // 현재 이동 방향
 
     private void Start()
     {
-        //    randRot = UnityEngine.Random.Range(-randRot, randRot);
-        //    dir = new Vector3(-1, randRot, 0);
-        //    trans = GetComponent<Transform>();
-        //    rigid = GetComponent<Rigidbody2D>();
         waitTime = new WaitForSeconds(dirChangeTime);
 
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<Player>();//플레이어 오브젝트를 찾기
 
         SetRandomDir();
         StartCoroutine(DirChange());
@@ -37,28 +31,13 @@ public class PowerUP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         transform.Translate(speed * Time.deltaTime * dir, Space.World);
-        //transform.position = speed * Time.deltaTime * dir;
-        //rigid.velocity = (dir * speed);
-
     }
 
-    //public void OnTriggerEnter2D(Collider2D col)
-    //{
-    //    if (col.gameObject.CompareTag("Border"))
-    //    {
-    //        dir = dir * -1.0f;
-
-    //        //Vector3 incomeDir = dir;
-    //        //incomeDir = incomeDir.normalized;
-    //        //Vector3 normalDir = col.ClosestPoint(transform.position);
-    //        //dir = Vector3.Reflect(incomeDir, normalDir);
-
-    //        Debug.Log("Border");
-    //    }
-    //}
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="allRandom">true 일 경우 완전 랜점/false일 경우 플레이어 반대 방향을 지향</param> 
     void SetRandomDir(bool allRandom = true) // 디폴트 파라메터. 값을 지정하지 않으면 디폴트 값이 들어간다
     {
         if (allRandom)
@@ -68,19 +47,32 @@ public class PowerUP : MonoBehaviour
         }
         else
         {
-            Vector2 playerToPowerUP = trans.position - player.transform.position;
+            Vector2 playerToPowerUP = transform.position - player.transform.position;
+            //플레이어에서 파워업 아이템 까지의 방향 벡터
             playerToPowerUP = playerToPowerUP.normalized;
-            dir = Quaternion.Euler(0,0,UnityEngine.Random.Range(-90.0f,90.0f))*playerToPowerUP;
+            //단위 백터로 변경
+            if (UnityEngine.Random.value < 0.6f)
+            {
+                dir = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-90.0f, 90.0f)) * -playerToPowerUP;
+            }
+            else
+            {
+                dir = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-90.0f, 90.0f)) * playerToPowerUP;
+            }
+
         }
     }
 
-
+    /// <summary>
+    /// 이동방향을 주기적으로 변경하는 코루틴
+    /// </summary>
+    /// <returns></returns>
     IEnumerator DirChange()
     {
         while (true)
         {
             yield return waitTime;
-            SetRandomDir();
+            SetRandomDir(false);
         }
     }
 
@@ -88,6 +80,7 @@ public class PowerUP : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Border"))
         {
+            //보더와 충돌하면 dir의 반사
             dir = Vector2.Reflect(dir, col.contacts[0].normal);
         }
     }

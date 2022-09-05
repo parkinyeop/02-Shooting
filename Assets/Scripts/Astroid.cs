@@ -101,7 +101,7 @@ public class Astroid : MonoBehaviour
         explosion.transform.parent = null; // 애니메이션 재생을 위해 부모랑 종속 끊기
 
         //5% 확률
-        if(Random.Range(0.0f, 1.0f) < 0.05f)
+        if (Random.Range(0.0f, 1.0f) < 0.05f)
         {
             splitCount = 20;
         }
@@ -110,14 +110,14 @@ public class Astroid : MonoBehaviour
             splitCount = Random.Range(3, 6);
         }
 
-        
+
         float rand = Random.Range(0, 360.0f);
         float angleGap = rand / (float)splitCount;
 
 
         for (int i = 0; i < splitCount; i++)
         {
-            Instantiate(small, transform.position, Quaternion.Euler(0, 0,(angleGap * i)));
+            Instantiate(small, transform.position, Quaternion.Euler(0, 0, (angleGap * i)));
         }
         Destroy(this.gameObject);
     }
