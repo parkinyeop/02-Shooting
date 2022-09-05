@@ -143,7 +143,7 @@ public class Player : MonoBehaviour
     {
 
         //이 스크립트 파일이 들어있는 게임 오브젝트에서 Rigibody2D 컴포넌트를 찾아 리턴(없으면 null)
-        // Rigidbody2D 함수는 무거움 = Update() 또는 FixedUpdate 처럼 자주 호출 되는 함수 안에서는 안쓰는 것이 좋다
+        //Rigidbody2D 함수는 무거움 = Update() 또는 FixedUpdate 처럼 자주 호출 되는 함수 안에서는 안쓰는 것이 좋다
         //GetComponent<Rigidbody2D>();
         //rigid.AddForce(speed * Time.fixedDeltaTime * dir);//관성이 필요한 무브에서 사용
 
@@ -157,21 +157,6 @@ public class Player : MonoBehaviour
             Power++;
             Destroy(collision.gameObject);
         }
-    }
-
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if(collision.CompareTag("PowerUP"))
-    //    {
-    //        Power++;
-    //        Destroy(collision.gameObject);
-    //    }
-    //}
-
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        //Debug.Log("OnTriggerExit2D"); // trigger 에서 나갈때
     }
 
     private void OnMove(InputAction.CallbackContext context)
