@@ -147,17 +147,11 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Debug.Log("OnCollisionEnter2"); //collider 와 부딪혔을 때 실행
-    }
-
-    //private void OnCollisionStay2D(Collision2D collision)
-    //{
-    //    Debug.Log("OnCollisionStay2"); //collider 와 접촉하고 있을떄 ( 매 프레임 )
-    //}
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        //Debug.Log("OnCollisionExit2D"); // collider 와 접촉이 떨어질때
+        if (collision.gameObject.CompareTag("PowerUP"))
+        {
+            Power++;
+            Destroy(collision.gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -169,10 +163,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    Debug.Log("OnTriggerStay2D"); // trigger 와 겹쳐서 움직일때
-    //}
 
     private void OnTriggerExit2D(Collider2D collision)
     {

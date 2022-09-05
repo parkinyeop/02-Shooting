@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Boss : MonoBehaviour
 {
@@ -13,6 +14,15 @@ public class Boss : MonoBehaviour
 
     float amlitude; //sin 으로 변경되는 위아래 차이.
     float frequency; //Sin 그래프가 한번 도는데 걸리는 시간
+
+    public GameObject powerUp;
+
+    [Range(0.1f,0.9f)]
+    public float spawnPow;
+    
+    //public float spawnInterval = 2;
+    //float yRange = 4;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +44,10 @@ public class Boss : MonoBehaviour
         //Debug.Log(newY);
         float newX = transform.position.x - speed * Time.deltaTime;
 
+        if(newX <= 5.5f)
+        {
+            newX = 5.5f;
+        }
         transform.position = new Vector3(newX, newY, 0);
 
         //transform.Translate(speed * Time.deltaTime * new Vector3(-1, spawnY, 0), Space.World);
@@ -51,10 +65,34 @@ public class Boss : MonoBehaviour
             {
                 explosion.SetActive(true);//부모가 총알에 맞았을떄 익스프롤션 활성화
                 explosion.transform.parent = null; // 애니메이션 재생을 위해 부모랑 종속 끊기
-                Destroy(this.gameObject);
 
+                float rndPower = Random.Range(0.0f, 1.0f);
+
+                Debug.Log(rndPower);
+
+                if (rndPower <spawnPow)
+                {
+                    Spawn();
+                }
+
+                Destroy(this.gameObject);
             }
 
+
         }
+
+        if (collider.gameObject.CompareTag("Border"))
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void Spawn()
+    {
+        float rand = Random.Range(0, 360.0f);
+        float angleGap = rand;
+        Instantiate(powerUp, transform.position, Quaternion.Euler(0, 0, angleGap));
+        //GameObject obj = Instantiate(powerUp, transform);
+        //obj.transform.Translate(Random.Range(-yRange, yRange), 0, 0);
     }
 }

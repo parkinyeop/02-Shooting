@@ -23,8 +23,7 @@ public class Asteroid_Small : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-                
+    {                
         transform.Translate(Time.deltaTime * speed * Vector3.up);
     }
 

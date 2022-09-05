@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 717122165193835879}
   - component: {fileID: 7169949947189843265}
   - component: {fileID: -318615979172491702}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -215,6 +215,10 @@ PrefabInstance:
     - target: {fileID: 5339531607527812834, guid: a1956fee8158d4b4991e04430ffe0faf, type: 3}
       propertyPath: m_Name
       value: ExplosionEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339531607527812834, guid: a1956fee8158d4b4991e04430ffe0faf, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5339531607527812834, guid: a1956fee8158d4b4991e04430ffe0faf, type: 3}
       propertyPath: m_IsActive
