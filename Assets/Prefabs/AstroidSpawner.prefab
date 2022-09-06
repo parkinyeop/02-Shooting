@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 4291545890225958500}
   m_Layer: 0
   m_Name: AstroidSpawner
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,4 +94,5 @@ MonoBehaviour:
   spawnBoss: {fileID: 0}
   spawnInterval: 2
   spawnProb: 0
+  rndSpawn: 0
   destination: {fileID: 4291545889070025277}

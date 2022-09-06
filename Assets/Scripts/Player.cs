@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
 
     Transform firePositionRoot;
     GameObject flash;
+    public GameObject explotionPrefab;
     
     int power = 0;
 
@@ -157,6 +158,16 @@ public class Player : MonoBehaviour
             Power++;
             Destroy(collision.gameObject);
         }
+
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            Dead();
+        }
+    }
+
+    void Dead()
+    {
+        Instantiate(explotionPrefab,transform.position, Quaternion.identity);
     }
 
     private void OnMove(InputAction.CallbackContext context)
