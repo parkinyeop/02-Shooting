@@ -69,15 +69,20 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 9e84baf0f02da4825856fdc1cf3de746, type: 3}
     - {fileID: 2800000, guid: fab0620a727df4d1e8239aa04a661beb, type: 3}
     - {fileID: 2800000, guid: 51c767352862726429734ff86cc9c0b5, type: 3}
+    - {fileID: 2800000, guid: 463669100b05b044c8ffffb691d2c7a8, type: 3}
+    - {fileID: 2800000, guid: d7bb5c34ddc061a4889acfd8a7ada986, type: 3}
+    - {fileID: 2800000, guid: 7da8cc1a5560dfb4da6eaa4728f00f11, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 463669100b05b044c8ffffb691d2c7a8, type: 3}
   - {fileID: 21300000, guid: 9e84baf0f02da4825856fdc1cf3de746, type: 3}
   - {fileID: 21300000, guid: 2aafde123c19b4d9eb19bfdeac5650f9, type: 3}
   - {fileID: 21300000, guid: c79c209290994493fb9cdbae5ba2a887, type: 3}
   - {fileID: 21300000, guid: 5103790323593436dacc2d917704c123, type: 3}
+  - {fileID: 21300000, guid: d7bb5c34ddc061a4889acfd8a7ada986, type: 3}
   - {fileID: 21300000, guid: 51c767352862726429734ff86cc9c0b5, type: 3}
   - {fileID: 21300000, guid: dca552656f4014eb7ae0c6981b4b840e, type: 3}
   - {fileID: 21300000, guid: 10af89f5b9af24605a83d05e21dfdeb5, type: 3}
@@ -89,6 +94,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 66e2bee867275422c9de0a02da52d95b, type: 3}
   - {fileID: 21300000, guid: 085dc9b92d7064f24868ea4e8f8919a2, type: 3}
   - {fileID: 21300000, guid: fab0620a727df4d1e8239aa04a661beb, type: 3}
+  - {fileID: 21300000, guid: 7da8cc1a5560dfb4da6eaa4728f00f11, type: 3}
   - {fileID: 21300000, guid: 12291d9aa888b41c58f66187eb386317, type: 3}
   - {fileID: 21300000, guid: 0e48d5aaf56184f408e3da666433a2d8, type: 3}
   - {fileID: 21300000, guid: 65019c4b741d6493d97d4072eff8e23b, type: 3}
@@ -99,10 +105,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 73a62f4febdb64ed58ae345f580877c0, type: 3}
   - {fileID: 21300000, guid: 9351af7f3305f4bca90613c6b4cc65f4, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Head_Boss_01
   - hit3
   - asteroid-small
   - enemy4
   - enemy5
+  - Head_Boss_02
   - PowerUpImage
   - bg-back
   - player3
@@ -114,6 +122,7 @@ SpriteAtlas:
   - enemy1
   - asteroid
   - hit4
+  - Head_Boss_03
   - shoot1
   - flash
   - player2
