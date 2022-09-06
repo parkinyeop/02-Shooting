@@ -68,6 +68,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 77c9c9e67521a4135b61a3c8ef9ee554, type: 3}
     - {fileID: 2800000, guid: 9e84baf0f02da4825856fdc1cf3de746, type: 3}
     - {fileID: 2800000, guid: fab0620a727df4d1e8239aa04a661beb, type: 3}
+    - {fileID: 2800000, guid: 51c767352862726429734ff86cc9c0b5, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -77,6 +78,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2aafde123c19b4d9eb19bfdeac5650f9, type: 3}
   - {fileID: 21300000, guid: c79c209290994493fb9cdbae5ba2a887, type: 3}
   - {fileID: 21300000, guid: 5103790323593436dacc2d917704c123, type: 3}
+  - {fileID: 21300000, guid: 51c767352862726429734ff86cc9c0b5, type: 3}
   - {fileID: 21300000, guid: dca552656f4014eb7ae0c6981b4b840e, type: 3}
   - {fileID: 21300000, guid: 10af89f5b9af24605a83d05e21dfdeb5, type: 3}
   - {fileID: 21300000, guid: 77c9c9e67521a4135b61a3c8ef9ee554, type: 3}
@@ -101,6 +103,7 @@ SpriteAtlas:
   - asteroid-small
   - enemy4
   - enemy5
+  - PowerUpImage
   - bg-back
   - player3
   - hit2
