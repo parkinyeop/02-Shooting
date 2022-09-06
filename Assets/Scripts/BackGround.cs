@@ -13,7 +13,7 @@ public class BackGround : MonoBehaviour
     protected virtual void Awake()
     {
         bgSlots = new Transform[transform.childCount];
-        for(int i = 0; i < transform.childCount; i++) // for반복은 정확한 인덱스가 필요할때 유리
+        for (int i = 0; i < transform.childCount; i++) // for반복은 정확한 인덱스가 필요할때 유리
         {
             bgSlots[i] = transform.GetChild(i);
         }
@@ -29,7 +29,7 @@ public class BackGround : MonoBehaviour
 
             if (bgSlots[i].position.x < minusX)
             {
-                bgSlots[i].Translate(Background_Width * bgSlots.Length * transform.right);
+                BgMove(i);
             }
         }
 
@@ -48,7 +48,7 @@ public class BackGround : MonoBehaviour
     }
 
     public virtual void BgMove(int index)
-    {       
-                
+    {
+        bgSlots[index].Translate(Background_Width * bgSlots.Length * transform.right);
     }
 }
