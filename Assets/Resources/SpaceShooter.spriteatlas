@@ -72,6 +72,18 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 463669100b05b044c8ffffb691d2c7a8, type: 3}
     - {fileID: 2800000, guid: d7bb5c34ddc061a4889acfd8a7ada986, type: 3}
     - {fileID: 2800000, guid: 7da8cc1a5560dfb4da6eaa4728f00f11, type: 3}
+    - {fileID: 2800000, guid: 9d58b015dfd4bc34bbecb9b9bc948ee2, type: 3}
+    - {fileID: 2800000, guid: af68af1f8e5c4164e979d2cded51fbb4, type: 3}
+    - {fileID: 2800000, guid: 2dc3e318c1ed8b14cb12e0a6b5a49a67, type: 3}
+    - {fileID: 2800000, guid: 8998df6562455c648966e1f70d4412a0, type: 3}
+    - {fileID: 2800000, guid: fe89138cdf8b1964a8e7238379f7d07b, type: 3}
+    - {fileID: 2800000, guid: 0fcb35a6fe09a6a4ab4f178df81a5d49, type: 3}
+    - {fileID: 2800000, guid: 2801d82edff53794c80b0131a0e0194a, type: 3}
+    - {fileID: 2800000, guid: d0098d5e98593844f86eb4a5084bbf53, type: 3}
+    - {fileID: 2800000, guid: 461d4903f586eab4f97973e92c9cd69f, type: 3}
+    - {fileID: 2800000, guid: 1d40d793a7dddeb458c9d044b805ca10, type: 3}
+    - {fileID: 2800000, guid: 3a769b42084d1c841be8b8448aaf1dba, type: 3}
+    - {fileID: 2800000, guid: 73cf250580350a042a956b701a0f7035, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -80,15 +92,23 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 463669100b05b044c8ffffb691d2c7a8, type: 3}
   - {fileID: 21300000, guid: 9e84baf0f02da4825856fdc1cf3de746, type: 3}
   - {fileID: 21300000, guid: 2aafde123c19b4d9eb19bfdeac5650f9, type: 3}
+  - {fileID: 21300000, guid: 3a769b42084d1c841be8b8448aaf1dba, type: 3}
   - {fileID: 21300000, guid: c79c209290994493fb9cdbae5ba2a887, type: 3}
+  - {fileID: 21300000, guid: 461d4903f586eab4f97973e92c9cd69f, type: 3}
   - {fileID: 21300000, guid: 5103790323593436dacc2d917704c123, type: 3}
+  - {fileID: 21300000, guid: 1d40d793a7dddeb458c9d044b805ca10, type: 3}
   - {fileID: 21300000, guid: d7bb5c34ddc061a4889acfd8a7ada986, type: 3}
+  - {fileID: 21300000, guid: 73cf250580350a042a956b701a0f7035, type: 3}
+  - {fileID: 21300000, guid: 9d58b015dfd4bc34bbecb9b9bc948ee2, type: 3}
   - {fileID: 21300000, guid: 51c767352862726429734ff86cc9c0b5, type: 3}
   - {fileID: 21300000, guid: dca552656f4014eb7ae0c6981b4b840e, type: 3}
+  - {fileID: 21300000, guid: 8998df6562455c648966e1f70d4412a0, type: 3}
   - {fileID: 21300000, guid: 10af89f5b9af24605a83d05e21dfdeb5, type: 3}
+  - {fileID: 21300000, guid: 0fcb35a6fe09a6a4ab4f178df81a5d49, type: 3}
   - {fileID: 21300000, guid: 77c9c9e67521a4135b61a3c8ef9ee554, type: 3}
   - {fileID: 21300000, guid: e4516f278fcd54d1e981e1c1d1d828b8, type: 3}
   - {fileID: 21300000, guid: 1545c5c7ab3a1437a97568048ac137fc, type: 3}
+  - {fileID: 21300000, guid: 2dc3e318c1ed8b14cb12e0a6b5a49a67, type: 3}
   - {fileID: 21300000, guid: 5ed891a8765a748118b877982d422583, type: 3}
   - {fileID: 21300000, guid: f33310c887ad74232b542e14ab4500d4, type: 3}
   - {fileID: 21300000, guid: 66e2bee867275422c9de0a02da52d95b, type: 3}
@@ -99,24 +119,36 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0e48d5aaf56184f408e3da666433a2d8, type: 3}
   - {fileID: 21300000, guid: 65019c4b741d6493d97d4072eff8e23b, type: 3}
   - {fileID: 21300000, guid: 2d8e367c420834cbfbb8ff0b68c0fd50, type: 3}
+  - {fileID: 21300000, guid: fe89138cdf8b1964a8e7238379f7d07b, type: 3}
   - {fileID: 21300000, guid: 344ce97df529d4125a1c555b3d92ba25, type: 3}
+  - {fileID: 21300000, guid: 2801d82edff53794c80b0131a0e0194a, type: 3}
   - {fileID: 21300000, guid: a856d83e2e7d94e209dc9075ecac8312, type: 3}
+  - {fileID: 21300000, guid: d0098d5e98593844f86eb4a5084bbf53, type: 3}
   - {fileID: 21300000, guid: f856800f61019475aa66ffed32ec55a7, type: 3}
+  - {fileID: 21300000, guid: af68af1f8e5c4164e979d2cded51fbb4, type: 3}
   - {fileID: 21300000, guid: 73a62f4febdb64ed58ae345f580877c0, type: 3}
   - {fileID: 21300000, guid: 9351af7f3305f4bca90613c6b4cc65f4, type: 3}
   m_PackedSpriteNamesToIndex:
   - Head_Boss_01
   - hit3
   - asteroid-small
+  - explosion11
   - enemy4
+  - explosion9
   - enemy5
+  - explosion10
   - Head_Boss_02
+  - explosion12
+  - explosion1
   - PowerUpImage
   - bg-back
+  - explosion4
   - player3
+  - explosion6
   - hit2
   - bg-stars
   - explosion4
+  - explosion3
   - shoot2
   - enemy2
   - enemy1
@@ -127,9 +159,13 @@ SpriteAtlas:
   - flash
   - player2
   - explosion5
+  - explosion5
   - hit1
+  - explosion7
   - enemy3
+  - explosion8
   - explosion3
+  - explosion2
   - explosion2
   - explosion1
   m_RenderDataMap: {}

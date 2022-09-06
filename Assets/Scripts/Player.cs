@@ -34,7 +34,9 @@ public class Player : MonoBehaviour
     Transform firePositionRoot;
     GameObject flash;
     public GameObject explotionPrefab;
-    
+
+    bool isDead = false;
+
     int power = 0;
 
     int Power
@@ -49,7 +51,7 @@ public class Player : MonoBehaviour
                 power = 3;
             }
             //기존의 firePosition을 제거
-            while(firePositionRoot.childCount > 0)
+            while (firePositionRoot.childCount > 0)
             {
                 Transform temp = firePositionRoot.GetChild(0); // firePosionRoot의 첫번째 자식
                 temp.parent = null; // 부모 관계를 끊고
@@ -116,6 +118,11 @@ public class Player : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
+        InputDisable();
+    }
+
+    void InputDisable()
+    {
         inputActions.Player.Disable();//오브젝트가 사라질때 더이상 입력을 받지 않는다
         inputActions.Player.Move.performed -= OnMove; //연결된 함수 해제
         inputActions.Player.Move.canceled -= OnMove; //연결된 함수 해제
@@ -137,18 +144,26 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        CheckBound();
+        //CheckBound();
     }
 
     private void FixedUpdate()
     {
+        if (!isDead)
+        {
+            //이 스크립트 파일이 들어있는 게임 오브젝트에서 Rigibody2D 컴포넌트를 찾아 리턴(없으면 null)
+            //Rigidbody2D 함수는 무거움 = Update() 또는 FixedUpdate 처럼 자주 호출 되는 함수 안에서는 안쓰는 것이 좋다
+            //GetComponent<Rigidbody2D>();
+            //rigid.AddForce(speed * Time.fixedDeltaTime * dir);//관성이 필요한 무브에서 사용
 
-        //이 스크립트 파일이 들어있는 게임 오브젝트에서 Rigibody2D 컴포넌트를 찾아 리턴(없으면 null)
-        //Rigidbody2D 함수는 무거움 = Update() 또는 FixedUpdate 처럼 자주 호출 되는 함수 안에서는 안쓰는 것이 좋다
-        //GetComponent<Rigidbody2D>();
-        //rigid.AddForce(speed * Time.fixedDeltaTime * dir);//관성이 필요한 무브에서 사용
+            rigid.MovePosition(transform.position + speed * boost * Time.fixedDeltaTime * dir);
 
-        rigid.MovePosition(transform.position + speed * boost * Time.fixedDeltaTime * dir);
+        }
+        else
+        {
+            rigid.AddForce(Vector2.left * 0.1f, ForceMode2D.Impulse);
+            rigid.AddTorque(10.0f);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -159,15 +174,27 @@ public class Player : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        if(collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            Dead();
+            //플레이어 HP
+            //스프라이트 렌더러 키고 끄기
+
+            if (isDead == false)
+            {
+                Dead();
+            }
         }
     }
 
     void Dead()
     {
-        Instantiate(explotionPrefab,transform.position, Quaternion.identity);
+        isDead = true;
+        GetComponent<Collider2D>().enabled = false;
+        Instantiate(explotionPrefab, transform.position, Quaternion.identity);
+        InputDisable();
+        rigid.gravityScale = 1.0f;
+        rigid.freezeRotation = false;
+        StopCoroutine(fireCoroutine);
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -175,7 +202,7 @@ public class Player : MonoBehaviour
         //Exception : 예외 상황(무엇을 해야 할지 지정이 안되어 있는 예외일때)
         //throw new NotImplementedException(); 
         //NotImplementedException()을 실행해라. => 코드 구현을 알려주기 위해 강제로 죽여라
-        
+
         // Vector2 inputDir = context.ReadValue<Vector2>();
         dir = context.ReadValue<Vector2>();
         //dir.y>0 //w(위)를 눌렀다
@@ -205,7 +232,7 @@ public class Player : MonoBehaviour
                 //fireposition[i]번째의 회전값을 사용
                 //bulletInstatne.transform.rotation = firePosition[i].rotation;
 
-                GameObject bulletInstatne = Instantiate(bullet, 
+                GameObject bulletInstatne = Instantiate(bullet,
                     firePositionRoot.GetChild(i).position, firePositionRoot.GetChild(i).rotation);
             }
 
@@ -229,6 +256,9 @@ public class Player : MonoBehaviour
     {
         boost = 1.0f;
     }
+    /// <summary>
+    /// 플레이어가 화면 바깥으로 나가면 포지션을 고정해서 갱신함
+    /// </summary>
     private void CheckBound()
     {
         if (transform.position.x < -xBound)
