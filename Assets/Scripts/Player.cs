@@ -14,37 +14,35 @@ public class Player : MonoBehaviour
     //Action del2; //리턴타입이 void, 파라메타가 없는 델리게이트를 만듬
     //Action<int> del3; // 인자값이 int rh 리턴타입으 없는 델리게이트를 만듬
     //Func<int , float> del4;// 인자가 int 이고 리턴이 float인 델리게이트를 만듬
-
+    [Header("플레이어 변수")]
     public float speed = 5.0f;
-    public GameObject bullet;
     public float fireInterval = 0.5f;
-    public int playerLife;
+    public int life;
+    public float invinsibleTime = 5.0f;
 
     float boost = 1.0f;
-    //float xBound = 7.0f;
-    //float yBound = 4.0f;
-    Vector3 dir;
-
     float fireAngle = 30.0f;
+    bool isDead = false;
+    int power = 0;
+    bool isInvisiableMode = false;
+    float timeElapsed = 0.0f;
 
+    [Header("게임프리팹")]
+    public GameObject bullet;
+    public GameObject explotionPrefab;
+    GameObject flash;
+
+    Vector3 dir;
     Transform[] firePosition;
     PlayerInputAction inputActions;
     Rigidbody2D rigid;
     Animator anim;
-
     Transform firePositionRoot;
-    GameObject flash;
-    public GameObject explotionPrefab;
-    //CapsuleCollider2D bodyCollider;
-    Collider2D bodyCollider; // Collider2D는 CapsuleCollider2D를 상속 받았음
-
-    public float invinsibleTime = 5.0f;
-    bool isDead = false;
-
-    int power = 0;
     SpriteRenderer playerRender;
-    bool isInvisiableMode = false;
-    float timeElapsed = 0.0f;
+    Collider2D bodyCollider; // Collider2D는 CapsuleCollider2D를 상속 받았음
+    //CapsuleCollider2D bodyCollider;
+
+    public Action<int> onLifeChnage;
 
     int Power
     {
@@ -90,27 +88,34 @@ public class Player : MonoBehaviour
         //{
         //return playerLife;
         //}
-        get => playerLife;
+        get => life;
 
         set
         {
-
-            if (playerLife > value)
+            if (life != value && !isDead)
             {
-                StartCoroutine(Invisiabla());
+
+                if (life > value)
+                {
+                    StartCoroutine(Invisiabla());
+                }
+
+                life = value;
+
+                if (life <= 0) // "<"을 때 경우와 "=" 때 경우 두번 검색하지만 코드의 안정성을 위해 
+                {
+                    Dead();
+                }
+
+                //(변수명)?. 왼쪽변수가 null이면 null. 아니면 맴버에 접근
+                onLifeChnage?.Invoke(life); //라이프가 변경될때 onLifeChange 델리게이트에 등록된 함수들을 실행시킨다
             }
 
-            playerLife = value;
-
-            if (playerLife <= 0) // "<"을 때 경우와 "=" 때 경우 두번 검색하지만 코드의 안정성을 위해 
-            {
-                Dead();
-            }
         }
         //int i = playerLife; //PlayerLife의 get이 실행된다. i=playerLife; 같은 결과
         //PlayerLife = 3; // playerLife 에 3을 넣어라 => playerLife의 set이 실행된다.
     }
-    
+
     IEnumerator fireCoroutine;
 
 
@@ -132,7 +137,7 @@ public class Player : MonoBehaviour
 
         fireCoroutine = Fire();
 
-        playerLife = 3;
+        life = 3;
 
         playerRender = GetComponent<SpriteRenderer>();
         bodyCollider = GetComponent<Collider2D>();
@@ -188,7 +193,7 @@ public class Player : MonoBehaviour
             timeElapsed += Time.deltaTime * 30.0f;
             float alpha = (Mathf.Cos(timeElapsed) + 1.0f) * 0.5f;
             playerRender.color = new Color(1, alpha, 1, 1);
-            Debug.Log(alpha);
+            //Debug.Log(alpha);
         }
     }
 
@@ -239,14 +244,16 @@ public class Player : MonoBehaviour
     IEnumerator Invisiabla()
     {
         bodyCollider.enabled = false;
+        gameObject.layer = LayerMask.NameToLayer("Invinisiable");
         isInvisiableMode = true;
 
 
         yield return new WaitForSeconds(invinsibleTime);
 
-        bodyCollider.enabled = true;
+        bodyCollider.enabled = !isDead;
         playerRender.color = Color.white;
         isInvisiableMode = false;
+        gameObject.layer = LayerMask.NameToLayer("Player");
     }
 
     void Dead()
@@ -258,6 +265,7 @@ public class Player : MonoBehaviour
         rigid.gravityScale = 1.0f;
         rigid.freezeRotation = false;
         StopCoroutine(fireCoroutine);
+        gameObject.layer = LayerMask.NameToLayer("Invinisiable");
     }
 
     private void OnMove(InputAction.CallbackContext context)
