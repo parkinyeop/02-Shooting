@@ -18,10 +18,11 @@ public class Player : MonoBehaviour
     public float speed = 5.0f;
     public GameObject bullet;
     public float fireInterval = 0.5f;
+    public int playerLife;
 
     float boost = 1.0f;
-    float xBound = 7.0f;
-    float yBound = 4.0f;
+    //float xBound = 7.0f;
+    //float yBound = 4.0f;
     Vector3 dir;
 
     float fireAngle = 30.0f;
@@ -34,10 +35,16 @@ public class Player : MonoBehaviour
     Transform firePositionRoot;
     GameObject flash;
     public GameObject explotionPrefab;
+    //CapsuleCollider2D bodyCollider;
+    Collider2D bodyCollider; // Collider2D는 CapsuleCollider2D를 상속 받았음
 
+    public float invinsibleTime = 5.0f;
     bool isDead = false;
 
     int power = 0;
+    SpriteRenderer playerRender;
+    bool isInvisiableMode = false;
+    float timeElapsed = 0.0f;
 
     int Power
     {
@@ -77,7 +84,33 @@ public class Player : MonoBehaviour
             }
         }
     }
+    int PlayerLife
+    {
+        //get
+        //{
+        //return playerLife;
+        //}
+        get => playerLife;
 
+        set
+        {
+
+            if (playerLife > value)
+            {
+                StartCoroutine(Invisiabla());
+            }
+
+            playerLife = value;
+
+            if (playerLife <= 0) // "<"을 때 경우와 "=" 때 경우 두번 검색하지만 코드의 안정성을 위해 
+            {
+                Dead();
+            }
+        }
+        //int i = playerLife; //PlayerLife의 get이 실행된다. i=playerLife; 같은 결과
+        //PlayerLife = 3; // playerLife 에 3을 넣어라 => playerLife의 set이 실행된다.
+    }
+    
     IEnumerator fireCoroutine;
 
 
@@ -88,6 +121,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+
         inputActions = new PlayerInputAction();
         rigid = GetComponent<Rigidbody2D>();//한번만 찾고 저장해서 계속 쓰기(메모리를 쓰고 성능 아끼기
         anim = GetComponent<Animator>();
@@ -97,6 +131,11 @@ public class Player : MonoBehaviour
         flash.SetActive(false);
 
         fireCoroutine = Fire();
+
+        playerLife = 3;
+
+        playerRender = GetComponent<SpriteRenderer>();
+        bodyCollider = GetComponent<Collider2D>();
     }
 
     /// <summary>
@@ -144,7 +183,13 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        //CheckBound();
+        if (isInvisiableMode)
+        {
+            timeElapsed += Time.deltaTime * 30.0f;
+            float alpha = (Mathf.Cos(timeElapsed) + 1.0f) * 0.5f;
+            playerRender.color = new Color(1, alpha, 1, 1);
+            Debug.Log(alpha);
+        }
     }
 
     private void FixedUpdate()
@@ -179,17 +224,35 @@ public class Player : MonoBehaviour
             //플레이어 HP
             //스프라이트 렌더러 키고 끄기
 
-            if (isDead == false)
-            {
-                Dead();
-            }
+            //if (isDead == false)
+            //{
+            //    Dead();
+            //}
+
+            PlayerLife--;
+            //StartCoroutine(Invinsible());
+
+
         }
+    }
+
+    IEnumerator Invisiabla()
+    {
+        bodyCollider.enabled = false;
+        isInvisiableMode = true;
+
+
+        yield return new WaitForSeconds(invinsibleTime);
+
+        bodyCollider.enabled = true;
+        playerRender.color = Color.white;
+        isInvisiableMode = false;
     }
 
     void Dead()
     {
         isDead = true;
-        GetComponent<Collider2D>().enabled = false;
+        bodyCollider.enabled = false;
         Instantiate(explotionPrefab, transform.position, Quaternion.identity);
         InputDisable();
         rigid.gravityScale = 1.0f;
@@ -259,24 +322,24 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 플레이어가 화면 바깥으로 나가면 포지션을 고정해서 갱신함
     /// </summary>
-    private void CheckBound()
-    {
-        if (transform.position.x < -xBound)
-        {
-            transform.position = new Vector3(-xBound, transform.position.y, transform.position.z);
-        }
-        else if (transform.position.x > xBound)
-        {
-            transform.position = new Vector3(xBound, transform.position.y, transform.position.z);
-        }
+    //private void CheckBound()
+    //{
+    //    if (transform.position.x < -xBound)
+    //    {
+    //        transform.position = new Vector3(-xBound, transform.position.y, transform.position.z);
+    //    }
+    //    else if (transform.position.x > xBound)
+    //    {
+    //        transform.position = new Vector3(xBound, transform.position.y, transform.position.z);
+    //    }
 
-        if (transform.position.y < -yBound)
-        {
-            transform.position = new Vector3(transform.position.x, -yBound, transform.position.z);
-        }
-        else if (transform.position.y > yBound)
-        {
-            transform.position = new Vector3(transform.position.x, yBound, transform.position.z);
-        }
-    }
+    //    if (transform.position.y < -yBound)
+    //    {
+    //        transform.position = new Vector3(transform.position.x, -yBound, transform.position.z);
+    //    }
+    //    else if (transform.position.y > yBound)
+    //    {
+    //        transform.position = new Vector3(transform.position.x, yBound, transform.position.z);
+    //    }
+    //}
 }
