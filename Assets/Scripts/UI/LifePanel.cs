@@ -19,6 +19,7 @@ public class LifePanel : MonoBehaviour
         //GameObject.Find();
         //GameObject.FindGameObjectsWithTag();
         //GameObject.FindObjectOfType<>();
+        
         Player player = FindObjectOfType<Player>();
         player.onLifeChnage += Refreah;
     }

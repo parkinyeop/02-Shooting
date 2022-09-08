@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     //CapsuleCollider2D bodyCollider;
 
     public Action<int> onLifeChnage;
+    public Action<int> onScoreChange;
 
     int Power
     {
@@ -182,6 +183,8 @@ public class Player : MonoBehaviour
     {
         Power = 1;
         PlayerLife = life;
+        totalScore = 0;
+        AddScore(0);
     }
 
     /// <summary>
@@ -354,5 +357,6 @@ public class Player : MonoBehaviour
     public void AddScore(int score)
     {
         totalScore += score;
+        onScoreChange.Invoke(totalScore);
     }
 }

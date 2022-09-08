@@ -8,8 +8,8 @@ public class EnemySpawner : MonoBehaviour
     public GameObject spawnPrefab;
     public GameObject spawnBoss;
     public float spawnInterval = 3.0f;
-    public float spawnProb = 1.0f;
-    public float rndSpawn;
+    public float spawnProb = 0.15f;
+    //public float rndSpawn;
     protected float yRange = 3.0f;
     // float waitSpawnTime = 0.0f;
 
@@ -36,10 +36,10 @@ public class EnemySpawner : MonoBehaviour
 
         while (true)
         {
-            rndSpawn = Random.Range(0, 10);
+            //rndSpawn = Random.Range(0, 10);
             GameObject obj;
 
-            if (UnityEngine.Random.value > 0.15f)
+            if (UnityEngine.Random.value > 0.1f)
             {
                 obj = Instantiate(spawnPrefab, transform);
             }

@@ -47,4 +47,4 @@ MonoBehaviour:
   spawnPrefab: {fileID: 717122165193835872, guid: 48a15573bad72344ca02e2610fe1eae9, type: 3}
   spawnBoss: {fileID: 28482953200078068, guid: b759eb22ee060cf4fa096b926320e848, type: 3}
   spawnInterval: 2
-  spawnProb: 50
+  spawnProb: 0.9
