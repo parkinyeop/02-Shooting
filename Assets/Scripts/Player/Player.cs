@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     Collider2D bodyCollider; // Collider2D는 CapsuleCollider2D를 상속 받았음
     //CapsuleCollider2D bodyCollider;
 
-    public Action<int> onLifeChnage;
+    public Action<int> onLifeChange;
     public Action<int> onScoreChange;
 
     int Power
@@ -57,6 +57,13 @@ public class Player : MonoBehaviour
             {
                 power = 3;
             }
+            if (power < 1)
+            {
+                power = 1;
+            }
+
+            //power = MathF.Clamp(power, 1, 3);
+
             //기존의 firePosition을 제거
             while (firePositionRoot.childCount > 0)
             {
@@ -110,7 +117,7 @@ public class Player : MonoBehaviour
                 }
 
                 //(변수명)?. 왼쪽변수가 null이면 null. 아니면 맴버에 접근
-                onLifeChnage?.Invoke(life); //라이프가 변경될때 onLifeChange 델리게이트에 등록된 함수들을 실행시킨다
+                onLifeChange?.Invoke(life); //라이프가 변경될때 onLifeChange 델리게이트에 등록된 함수들을 실행시킨다
             }
 
         }
@@ -258,6 +265,7 @@ public class Player : MonoBehaviour
         playerRender.color = Color.white;
         isInvisiableMode = false;
         gameObject.layer = LayerMask.NameToLayer("Player");
+        power--;
     }
 
     void Dead()

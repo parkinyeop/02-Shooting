@@ -21,7 +21,7 @@ public class LifePanel : MonoBehaviour
         //GameObject.FindObjectOfType<>();
         
         Player player = FindObjectOfType<Player>();
-        player.onLifeChnage += Refreah;
+        player.onLifeChange += Refreah;
     }
 
     void Refreah(int life)
