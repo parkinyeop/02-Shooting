@@ -5,13 +5,15 @@ using TMPro;
 
 public class LifePanel : MonoBehaviour
 {
-    // Start is called before the first frame update
     TextMeshProUGUI lifeText;
+
+    // Start is called before the first frame update
     private void Awake()
     {
         lifeText= transform.GetChild(2).GetComponent<TextMeshProUGUI>();
     }
 
+    
     private void Start()
     {
         //GameObject.Find();

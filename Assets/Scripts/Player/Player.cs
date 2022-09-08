@@ -137,7 +137,6 @@ public class Player : MonoBehaviour
 
         fireCoroutine = Fire();
 
-        life = 3;
 
         playerRender = GetComponent<SpriteRenderer>();
         bodyCollider = GetComponent<Collider2D>();
@@ -181,6 +180,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Power = 1;
+        PlayerLife = life;
     }
 
     /// <summary>
