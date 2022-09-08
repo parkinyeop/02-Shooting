@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float speed = 3.0f;
+    public int score = 10;
     GameObject explosion;
 
     float spawnY;
@@ -13,6 +15,8 @@ public class Enemy : MonoBehaviour
 
     public float amlitude; //sin 으로 변경되는 위아래 차이.
     public float frequency; //Sin 그래프가 한번 도는데 걸리는 시간
+
+    Action<int> onDead;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +27,9 @@ public class Enemy : MonoBehaviour
         timeElapsed = 0.0f;
         amlitude = 2.0f;
         frequency = 2.0f;
+
+        Player player = FindObjectOfType<Player>();
+        onDead += player.AddScore;
     }
 
     // Update is called once per frame
@@ -48,6 +55,8 @@ public class Enemy : MonoBehaviour
 
             explosion.SetActive(true);//부모가 총알에 맞았을떄 익스프롤션 활성화
             explosion.transform.parent = null; // 애니메이션 재생을 위해 부모랑 종속 끊기
+
+            onDead.Invoke(score);
 
             Destroy(this.gameObject);
         }

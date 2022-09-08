@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     int power = 0;
     bool isInvisiableMode = false;
     float timeElapsed = 0.0f;
+    public int totalScore = 0;
 
     [Header("게임프리팹")]
     public GameObject bullet;
@@ -350,4 +351,8 @@ public class Player : MonoBehaviour
     //        transform.position = new Vector3(transform.position.x, yBound, transform.position.z);
     //    }
     //}
+    public void AddScore(int score)
+    {
+        totalScore += score;
+    }
 }

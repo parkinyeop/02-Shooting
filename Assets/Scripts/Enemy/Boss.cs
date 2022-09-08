@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.UIElements;
 public class Boss : MonoBehaviour
 {
     public float speed = 0.1f;
+    public int score = 50;
     GameObject explosion;
     float hitPoint = 5.0f;
 
@@ -20,6 +22,7 @@ public class Boss : MonoBehaviour
     [Range(0.1f, 0.9f)]
     public float spawnPow;
 
+    Action<int> onDead;
     //public float spawnInterval = 2;
     //float yRange = 4;
 
@@ -33,6 +36,9 @@ public class Boss : MonoBehaviour
         timeElapsed = 0.0f;
         amlitude = 1.5f;
         frequency = 1.0f;
+
+        Player player = FindObjectOfType<Player>();
+        onDead += player.AddScore;
 
         Destroy(this.gameObject, 15.0f);
     }
@@ -68,7 +74,7 @@ public class Boss : MonoBehaviour
                 explosion.SetActive(true);//부모가 총알에 맞았을떄 익스프롤션 활성화
                 explosion.transform.parent = null; // 애니메이션 재생을 위해 부모랑 종속 끊기
 
-                float rndPower = Random.Range(0.0f, 1.0f);
+                float rndPower = UnityEngine.Random.Range(0.0f, 1.0f);
 
                 //Debug.Log(rndPower);
 
@@ -78,7 +84,7 @@ public class Boss : MonoBehaviour
                     Spawn();
 
                 }
-
+                onDead.Invoke(score);
                 Destroy(this.gameObject);
             }
 
