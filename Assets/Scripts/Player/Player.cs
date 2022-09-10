@@ -42,6 +42,9 @@ public class Player : MonoBehaviour
     SpriteRenderer playerRender;
     Collider2D bodyCollider; // Collider2D는 CapsuleCollider2D를 상속 받았음
     //CapsuleCollider2D bodyCollider;
+    
+    AudioSource audioSource;
+    public AudioClip shot1;
 
     public Action<int> onLifeChange;
     public Action<int> onScoreChange;
@@ -143,12 +146,14 @@ public class Player : MonoBehaviour
         firePositionRoot = transform.GetChild(0);
         flash = transform.GetChild(1).gameObject;
         flash.SetActive(false);
-
+            
         fireCoroutine = Fire();
 
 
         playerRender = GetComponent<SpriteRenderer>();
         bodyCollider = GetComponent<Collider2D>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -321,6 +326,7 @@ public class Player : MonoBehaviour
 
             flash.SetActive(true);
             StartCoroutine(FlashOff());
+            audioSource.PlayOneShot(shot1,0.7f);
 
             yield return new WaitForSeconds(fireInterval);
         }

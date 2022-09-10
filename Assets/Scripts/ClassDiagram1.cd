@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BackGround" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAiAAAAAAAAACAAAAAAAAEAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\BackGround\BackGround.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackGroundPlanet" Collapsed="true">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQQACAgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\BackGround\BackGroundPlanet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackGroundStars" Collapsed="true">
+    <Position X="5.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABAEA=</HashCode>
+      <FileName>Assets\Scripts\BackGround\BackGroundStars.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Explosion" Collapsed="true">
+    <Position X="11.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAACEA=</HashCode>
+      <FileName>Assets\Scripts\Effect\Explosion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HitEffect" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAQAAAAAACgA=</HashCode>
+      <FileName>Assets\Scripts\Effect\HitEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Asteroid_Small" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAACAAAAIAAAAAAAAAQAAAAAgAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Asteroid_Small.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Astroid" Collapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAQBAESAQJACAAAAsAAAAAQAARAABAAAgBBBAAEA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Astroid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstroidSpawner">
+    <Position X="2.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAACAAAAAAAAEAAAAAAAAAAAAAAAAABAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\AstroidSpawner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Boss" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAEACQAAQCAAAEIAAABAAAABQCAAAAgBAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Boss.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enemy" Collapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAACQAAACAAAAIAAABAAAABQCAAAAgAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemySpawner">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAQAAiAAAABAAAUAAAAAAAAAAgAAAAAAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\EnemySpawner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PowerUP" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAACAAACAAQAAAAIAQAAAAAAAAAQABAAAgAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\PowerUP.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PowerUPSpawner" Collapsed="true">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAQBAAAEAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\PowerUPSpawner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TargetMove" Collapsed="true">
+    <Position X="11.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\TargetMove.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BGM" Collapsed="true">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ETC\BGM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Killzone" Collapsed="true">
+    <Position X="7.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ETC\Killzone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Move" Collapsed="true">
+    <Position X="11.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAABAAQAAAAkAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ETC\Move.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bullet">
+    <Position X="7.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAQABAAAAAAAAAAAAAAAAAAAAgBAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Player\Bullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="13" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUEwIBAAiAAAiAgAABABAAAABFGUQAJAXggCIAECGI=</HashCode>
+      <FileName>Assets\Scripts\Player\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameOverPanel" Collapsed="true">
+    <Position X="13" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAAAACAAAAAAAAAAAAAAAIAAAAAGAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\UI\GameOverPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LifePanel" Collapsed="true">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUA=</HashCode>
+      <FileName>Assets\Scripts\UI\LifePanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScorePanel" Collapsed="true">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAACAAAQAAAABIAAAAAAQAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\UI\ScorePanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
