@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
     Transform firePositionRoot;
     SpriteRenderer playerRender;
     Collider2D bodyCollider; // Collider2D는 CapsuleCollider2D를 상속 받았음
+    Camera cam;
     //CapsuleCollider2D bodyCollider;
     
     AudioSource audioSource;
@@ -154,6 +155,7 @@ public class Player : MonoBehaviour
         bodyCollider = GetComponent<Collider2D>();
 
         audioSource = GetComponent<AudioSource>();
+
     }
 
     /// <summary>
@@ -196,7 +198,7 @@ public class Player : MonoBehaviour
         Power = 1;
         PlayerLife = life;
         totalScore = 0;
-        AddScore(0);
+        AddScore(0);        
     }
 
     /// <summary>
@@ -283,6 +285,10 @@ public class Player : MonoBehaviour
         rigid.freezeRotation = false;
         StopCoroutine(fireCoroutine);
         gameObject.layer = LayerMask.NameToLayer("Invinisiable");
+
+
+        
+        
     }
 
     private void OnMove(InputAction.CallbackContext context)
